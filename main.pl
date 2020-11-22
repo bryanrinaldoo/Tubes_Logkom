@@ -10,7 +10,12 @@ menu :- write('WELCOME FIGHTER!'),nl,nl,
             (Pick = 1 -> write('Lets start the journey!'), nl, start, !;
             Pick = 2 -> write('Till next time fighter!'),nl, !).
 
-start    :- write('Please tell me your name fighter : '), read(Username),nl,
+:- dynamic(alreadystart/1).
+
+start    :- alreadystart(_), write('You already start the journey!'), !,nl.
+
+start    :- \+alreadystart(_), asserta(alreadystart(true)),
+            write('Please tell me your name fighter : '), read(Username),nl,
             write('This is the class that you can choose: '),nl, 
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,
@@ -27,9 +32,6 @@ start    :- write('Please tell me your name fighter : '), read(Username),nl,
 
 stats    :- class(Username,_),
             checkstats(Username),!.
-
-checkequip :-   write('weapon : ', weapon(X), write(X)),nl,
-                write('armor : ', armor(X), write(X)).
 
 help :-     write('write stats. to see your stats'),nl,
             write('nanti ditambahin lagi help nya').

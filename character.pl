@@ -11,7 +11,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(specialattack(X,7)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)),
-                        initinventorysword.
+                        inventorysword.
                     
 :- dynamic(createarcher/1).
 createarcher(X) :-      asserta(class(X,archer)),
@@ -22,7 +22,7 @@ createarcher(X) :-      asserta(class(X,archer)),
                         asserta(specialattack(X,8)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)),
-                        initinventoryarcher.
+                        inventoryarcher.
                     
 :- dynamic(createmage/1).
 createmage(X) :-        asserta(class(X,mage)),
@@ -33,7 +33,7 @@ createmage(X) :-        asserta(class(X,mage)),
                         asserta(specialattack(X,9)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)),
-                        initinventorymage.
+                        inventorymage.
 
 checkstats(Username) :- write('Username : '), write(Username), nl,
                         write('Class    : '), class(Username, Class), write(Class), nl,

@@ -5,21 +5,21 @@ inventory(X) :- space(X).
 :- dynamic(stored/2).
 cekInvent(X) :- stored(X,Y), Y > 0.
 
-
-initinventorysword :-   asserta(space(6)),
+inventorysword :-   asserta(bagspace(6)),
                         asserta(weapon(none)),
                         asserta(armor(none)),
                         asserta(stored(health_potion, 5)),
                         asserta(stored(wooden_sword, 1)).
 
-initinventoryarcher :-  asserta(space(6)),
+inventoryarcher :-  asserta(bagspace(6)),
                         asserta(weapon(none)),
                         asserta(armor(none)),
                         asserta(stored(health_potion, 5)),
                         asserta(stored(wooden_bow, 1)).
 
-initinventorymage :-    asserta(space(6)),
+inventorymage :-    asserta(bagspace(6)),
                         asserta(weapon(none)),
                         asserta(armor(none)),
                         asserta(stored(health_potion, 5)),
                         asserta(stored(wooden_staff, 1)).
+

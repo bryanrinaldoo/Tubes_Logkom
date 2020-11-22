@@ -13,3 +13,4 @@ weaponcheck(wooden_staff, mage).
 weaponcheck(iron_staff, mage).
 weaponcheck(diamond_staff, mage).
 weaponcheck(legendary_staff, mage).
+
