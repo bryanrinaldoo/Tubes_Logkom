@@ -8,7 +8,7 @@ mainmenu :- write('WELCOME FIGHTER!'),nl,nl,
             (Pick = 1 -> write('Lets start the journey!'), nl, start, !;
             Pick = 2 -> write('Till next time fighter!'),nl, !).
 
-start    :- write('Please tell me your name fighter : '),
+start    :- write('Please tell me your name fighter : '), read(Username),nl,
             write('This is the class that you can choose: '),nl, 
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,

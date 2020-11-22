@@ -32,10 +32,10 @@ createmage(X) :-        asserta(class(X,mage)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)).
 
-checkstats(username) :- write('Username : '), write(username), nl,
-                        write('Class    : '), class(username, Class), write(Class), nl,
-                        write('Level    : '), level(username, Level), write(Level), nl,
-                        write('Health   : '), health(username, Health), write(Health), nl,
-                        write('Attack   : '), attack(username, Attack), write(Attack), nl,
-                        write('Defense  : '), defense(username, Defense), write(Defense), nl,
-                        write('Speed    : '), speed(username, Speed), write(Speed), nl, nl.
+checkstats(Username) :- write('Username : '), write(Username), nl,
+                        write('Class    : '), class(Username, Class), write(Class), nl,
+                        write('Level    : '), level(Username, Level), write(Level), nl,
+                        write('Health   : '), health(Username, Health), write(Health), nl,
+                        write('Attack   : '), attack(Username, Attack), write(Attack), nl,
+                        write('Defense  : '), defense(Username, Defense), write(Defense), nl,
+                        write('Speed    : '), speed(Username, Speed), write(Speed), nl, nl.
