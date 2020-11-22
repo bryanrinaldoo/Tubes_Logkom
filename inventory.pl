@@ -6,8 +6,20 @@ inventory(X) :- space(X).
 cekInvent(X) :- stored(X,Y), Y > 0.
 
 
-initinventorysword :-   assert(space(6)),
-                        assert(weapon(none)),
-                        assert(armor(none)),
-                        assert(stored(health_potion, 5)),
-                        assert(stored(wooden, 1)),
+initinventorysword :-   asserta(space(6)),
+                        asserta(weapon(none)),
+                        asserta(armor(none)),
+                        asserta(stored(health_potion, 5)),
+                        asserta(stored(wooden_sword, 1)).
+
+initinventoryarcher :-  asserta(space(6)),
+                        asserta(weapon(none)),
+                        asserta(armor(none)),
+                        asserta(stored(health_potion, 5)),
+                        asserta(stored(wooden_bow, 1)).
+
+initinventorymage :-    asserta(space(6)),
+                        asserta(weapon(none)),
+                        asserta(armor(none)),
+                        asserta(stored(health_potion, 5)),
+                        asserta(stored(wooden_staff, 1)).

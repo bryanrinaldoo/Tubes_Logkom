@@ -1,6 +1,8 @@
 :- include('character.pl').
+:- include('inventory.pl').
+:- include('items.pl').
 
-mainmenu :- write('WELCOME FIGHTER!'),nl,nl,
+menu :- write('WELCOME FIGHTER!'),nl,nl,
             write('1. start'),nl,
             write('2. Quit'),nl,nl,
             write('Choose what you want to do fighter! : '), read_integer(Pick),nl,
@@ -19,9 +21,15 @@ start    :- write('Please tell me your name fighter : '), read(Username),nl,
             (Pickclass = 1 -> createswordsman(Username),nl,
             write('You have become a Swordsman'),nl ;
             Pickclass = 2 -> createarcher(Username),
-            write('You have become a Swordsman'),nl ;
+            write('You have become a Archer'),nl ;
             Pickclass = 3 -> createmage(Username),
-            write('You have become a Swordsman'),nl).
+            write('You have become a Mage'),nl).
 
 stats    :- class(Username,_),
             checkstats(Username),!.
+
+checkequip :-   write('weapon : ', weapon(X), write(X)),nl,
+                write('armor : ', armor(X), write(X)).
+
+help :-     write('write stats. to see your stats'),nl,
+            write('nanti ditambahin lagi help nya').
