@@ -19,7 +19,7 @@ start    :- \+alreadystart(_), asserta(alreadystart(1)),
             write('This is the class that you can choose: '),nl, 
             write('1. Swordsman'),nl,
             write('2. Archer'),nl,
-            write('3. Mage'),nl,nl,
+            write('3. Sorcerer'),nl,nl,
 
             write('Choose wisely: '), read_integer(Pickclass), nl,
 
@@ -27,8 +27,8 @@ start    :- \+alreadystart(_), asserta(alreadystart(1)),
             write('You have become a Swordsman'),nl ;
             Pickclass = 2 -> createarcher(Username),
             write('You have become a Archer'),nl ;
-            Pickclass = 3 -> createmage(Username),
-            write('You have become a Mage'),nl).
+            Pickclass = 3 -> createsorcerer(Username),
+            write('You have become a Sorcerer'),nl).
 
 stats    :- class(Username,_),
             checkstats(Username),!.

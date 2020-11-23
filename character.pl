@@ -1,6 +1,6 @@
 isClass(swordsman).
 isClass(archer).
-isClass(mage).
+isClass(sorcerer).
 
 :- dynamic(creatswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
@@ -28,8 +28,8 @@ createarcher(X) :-      asserta(class(X,archer)),
                         asserta(position(X,1,1)),    /* inisiasi posisi awal di map */
                         inventoryarcher.
                     
-:- dynamic(createmage/1).
-createmage(X) :-        asserta(class(X,mage)),
+:- dynamic(createsorcerer/1).
+createsorcerer(X) :-    asserta(class(X,sorcerer)),
                         asserta(health(X,9)),
                         asserta(attack(X,5)),
                         asserta(defense(X,5)),
@@ -39,7 +39,7 @@ createmage(X) :-        asserta(class(X,mage)),
                         asserta(level(X,1)),
                         asserta(gold(X,100)),
                         asserta(position(X,1,1)),    /* inisiasi posisi awal di map */
-                        inventorymage.
+                        inventorysorcerer.
 
 checkstats(Username) :- write('Username : '), write(Username), nl,
                         write('Class    : '), class(Username, Class), write(Class), nl,
@@ -47,4 +47,6 @@ checkstats(Username) :- write('Username : '), write(Username), nl,
                         write('Health   : '), health(Username, Health), write(Health), nl,
                         write('Attack   : '), attack(Username, Attack), write(Attack), nl,
                         write('Defense  : '), defense(Username, Defense), write(Defense), nl,
-                        write('Speed    : '), speed(Username, Speed), write(Speed), nl, nl.
+                        write('Speed    : '), speed(Username, Speed), write(Speed), nl,
+                        write('EXP      : '), exp(Username, Exp), write(Exp), nl,
+                        write('Gold     : '), gold(Username, Gold), write(Gold), nl,nl.
