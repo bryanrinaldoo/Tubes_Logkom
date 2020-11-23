@@ -80,9 +80,9 @@ d :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1, NextKolom < 19, ret
 
 
 /* Akses Store */
-store :- position(store,BarisStore,KolomStore), positionPlayer(_,BarisPlayer,KolomPlayer), JarakBaris is (BarisStore-BarisPlayer)*(BarisStore-BarisPlayer), JarakKolom is (KolomStore-KolomPlayer)*(KolomStore-KolomPlayer), Jarak is JarakBaris+JarakKolom,
-        (Jarak <= 2 -> /*TODO SHOP*/ ;
-        write('Oops, kamu terlalu jauh dari Store!')).
+/*store :-    position(store,BarisStore,KolomStore), positionPlayer(_,BarisPlayer,KolomPlayer), JarakBaris is (BarisStore-BarisPlayer)*(BarisStore-BarisPlayer), JarakKolom is (KolomStore-KolomPlayer)*(KolomStore-KolomPlayer), Jarak is JarakBaris+JarakKolom,
+            (Jarak <= 2 -> /*TODO SHOP*/ 
+           /* write('Oops, kamu terlalu jauh dari Store!')).*/
 
 
 /* TODO Akses Store */
