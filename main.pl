@@ -44,5 +44,7 @@ bag :-  write('Your bag contains : '), nl, nl,
 help :-     write('These are the command you can use in your game : '),nl,nl,
             write('- write stats. to see your stats'),nl,
             write('- write bag. to check your inventory'),nl,
+            write('- write useWeapon(<item_name>). to equip your weapon'),nl,
+            write('- write map. to check where you are'),nl, 
             write('----nanti ditambahin lagi help nya----'),!.
 

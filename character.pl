@@ -2,7 +2,7 @@ isClass(swordsman).
 isClass(archer).
 isClass(sorcerer).
 
-:- dynamic(creatswordsman/1).
+:- dynamic(createswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(health(X,10)),
                         asserta(attack(X,5)),
