@@ -1,5 +1,5 @@
 /* 2 contoh nanti bisa disesuaiin sama info character */
-pemain(ghally,100).
-pemain(riko,0).
+health(ghally,100).
+health(riko,-2).
 
-failstate(X):- pemain(X,Y),Y is 0, write('Anda kalah!').
+failstate(X):- health(X,Y),Y <= 0, write('Anda kalah!').
