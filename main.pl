@@ -14,7 +14,7 @@ menu :- write('WELCOME FIGHTER!'),nl,nl,
 
 start    :- alreadystart(_), write('You already start the journey!'), !,nl.
 
-start    :- \+alreadystart(_), asserta(alreadystart(true)),
+start    :- \+alreadystart(_), asserta(alreadystart(1)),
             write('Please tell me your name fighter : '), read(Username),nl,
             write('This is the class that you can choose: '),nl, 
             write('1. Swordsman'),nl,
@@ -33,5 +33,12 @@ start    :- \+alreadystart(_), asserta(alreadystart(true)),
 stats    :- class(Username,_),
             checkstats(Username),!.
 
-help :-     write('write stats. to see your stats'),nl,
-            write('nanti ditambahin lagi help nya').
+bag :-  write('Your bag contains : '), nl, nl,
+        forall((cekBag(Item)), 
+        (banyakitem(Item, Count), write(Item), write(' : '), write(Count), nl)), nl.
+
+help :-     write('These are the command you can use in your game : '),nl,nl,
+            write('- write stats. to see your stats'),nl,
+            write('- write bag. to check your inventory'),nl,
+            write('----nanti ditambahin lagi help nya----'),!.
+
