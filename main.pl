@@ -1,6 +1,7 @@
 :- include('character.pl').
 :- include('inventory.pl').
 :- include('items.pl').
+:- include('map.pl').
 
 menu :- write('WELCOME FIGHTER!'),nl,nl,
             write('1. start'),nl,
