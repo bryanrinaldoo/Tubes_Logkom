@@ -206,9 +206,9 @@ unuseAccesory(Item) :-  (equipArm(Item) -> downStatsac(Item),
 
 usePotion(Item) :-  (cekBag(Item), potioncheck(Item,Class),
                     class(_,Class) -> 
-                    retract(stored(Item,X)),
+                    retract(stored(Item, X)),
                     Y is X-1, 
-                    asserta(stored(Item,Y)),
+                    asserta(stored(Item, Y)),
 
                     upPotion(Item),
 
@@ -216,9 +216,9 @@ usePotion(Item) :-  (cekBag(Item), potioncheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
-                    write('Potion used!'),nl;
+                    write('Potion used!'),nl,!;
                     \+(cekBag(Item)) -> write('You don\'t have this item. Go to the store to buy it'),nl).
-                    
+
 /*up and down stats weapon*/
 upStatswp(Item) :-  class(User,Class), weaponcheck(Item,Class), itemlevel(Item,Level),
                     (Level == wood -> retract(attack(User,Prev)), New is Prev + 2, asserta(attack(User,New));
