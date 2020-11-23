@@ -17,7 +17,7 @@ inventoryarcher :-  asserta(bagspace(6)),
                     asserta(equipWpn(none)),
                     asserta(equipArm(none)),
                     asserta(stored(health_potion, 5)),
-                    asserta(stored(wooden_sword, 1)).
+                    asserta(stored(wooden_bow, 1)).
 
 inventorymage :-    asserta(bagspace(6)),
                     asserta(equipWpn(none)),

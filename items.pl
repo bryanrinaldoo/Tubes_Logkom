@@ -69,7 +69,7 @@ unuseWeapon(Item) :-    (equipWpn(Item), /* belum turunin stat dari item */
                         asserta(stored(Item,1))), 
                         
                         asserta(equipWpn(none)),
-                        inventory(Used), Used < 100,
+                        bagspace(Used), Used < 100,
                         retract(equipWpn(Item)), 
                         
                         retract(bagspace(Used)),
@@ -79,3 +79,42 @@ unuseWeapon(Item) :-    (equipWpn(Item), /* belum turunin stat dari item */
                         write(Item), write(' Item unequipped!'), nl;
                         write('???? You don\'t even wear it ???'), nl). 
 
+
+useArmor(Item) :-   (cekBag(Item), armorcheck(Item,Class),
+                    class(_,Class) -> (equipArm(used), used\== none -> unuseArmor(_);
+                    retract(equipArm(none))),
+                    asserta(equipArm(Item)),
+                    
+                    retract(stored(Item,X)),
+                    Y is X-1, 
+                    asserta(stored(Item,Y)),
+
+                    retract(bagspace(Prev)),
+                    New is Prev - 1,
+                    asserta(bagspace(New)),
+
+                    write('Item equipped!'),nl;
+
+                    \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
+
+                    write('This item not suit you!'),nl).
+                    
+                    /*belum kasih stat kedalam item nya */
+
+unuseArmor(Item) :-     (equipArm(Item), /* belum turunin stat dari item */
+                        (stored(Item,X) -> 
+                        retract(stored(Item,X)), 
+                        Y is X + 1, 
+                        asserta(stored(Item, Y));
+                        asserta(stored(Item,1))), 
+                        
+                        asserta(equipArm(none)),
+                        bagspace(Used), Used < 100,
+                        retract(equipArm(Item)), 
+                        
+                        retract(bagspace(Prev)),
+                        New is Prev + 1, 
+                        asserta(bagspace(New)),
+
+                        write(Item), write(' Item unequipped!'), nl;
+                        write('???? You don\'t even wear it ???'), nl). 
