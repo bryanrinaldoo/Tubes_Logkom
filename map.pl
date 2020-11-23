@@ -67,25 +67,51 @@ map(Baris,Kolom) :- positionPlayer(_,Baris,Kolom), write('P').
 
 map(Baris,Kolom) :- \+position(_,Baris,Kolom), \+positionPlayer(_,Baris,Kolom), write('-').
 
-/* Jalan-jalan */
-:-dynamic(ketemuMusuh/2).
+/* Pertarungan */
 
-w :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1, NextBaris > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)).
+/* TODO sesuain battle(X) dengan bagian Battle Mech */
+/* TODO sesuain showStats(X) dengan bagian Enemy  */
 
-s :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1, NextBaris < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)).
+/* Kondisi posisi player berada di zona monster */
 
-a :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1, NextKolom > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)).
+/*
+condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPlayer,KolomPlayer), Monster \= quest, Monster \= store, showStat(Monster), battle(Monster).
+*/
 
-d :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1, NextKolom < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)).
+/* Kondisi posisi player tidak berada di zona monster */
 
+/*
+condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer,KolomPlayer), ketemuMusuh(Value), 
+        (Value = 0 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
+        Value = 1 -> showStat(goblin), battle(goblin), newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
+        Value = 2 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
+        Value = 3 -> showStat(slime), battle(slime), newValue is 0, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue))).
+*/
 
-/* Akses Store */
-store :- position(store,BarisStore,KolomStore), positionPlayer(_,BarisPlayer,KolomPlayer), JarakBaris is (BarisStore-BarisPlayer)*(BarisStore-BarisPlayer), JarakKolom is (KolomStore-KolomPlayer)*(KolomStore-KolomPlayer), Jarak is JarakBaris+JarakKolom,
-        (Jarak <= 2 -> /*TODO SHOP*/ ;
-        write('Oops, kamu terlalu jauh dari Store!')).
-
-
+/* Kondisi posisi player memasuki Quest atau Store */
 /* TODO Akses Store */
 /* TODO Akses Quest */
-/* TODO kemungkinan ketemu musuh saat jalan-jalan */
+condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPlayer, KolomPlayer),
+        (Tempat = store -> write('Fiuhh, kamu berada di dalam Store. Monster tidak akan mengejarmu.');
+        Tempat = quest -> write('Fiuhh, kamu berada di dalam Quest. Monster tidak akan mengejarmu.')).
+
+/* Jalan-jalan */
+w :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1, NextBaris > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), condition.
+
+s :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1, NextBaris < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), condition.
+
+a :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1, NextKolom > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), condition.
+
+d :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1, NextKolom < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), condition.
+
+/* Teleport */
+teleport(Lokasi) :- (Lokasi = store -> position(store,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom));
+                    Lokasi = quest -> position(quest,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom));
+                    Lokasi = ogre -> position(ogre,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
+                    Lokasi = wolf -> position(wolf,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)); 
+                    Lokasi = golem -> position(golem,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
+                    Lokasi = viper -> position(viper,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
+                    Lokasi = miniboss -> position(miniboss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
+                    Lokasi = boss -> position(boss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom))).
+
                     

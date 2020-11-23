@@ -13,6 +13,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(level(X,1)),
                         asserta(positionPlayer(X,1,1)),    /* inisiasi posisi awal di map */
                         asserta(gold(X,100)),
+                        asserta(ketemuMusuh(0)),
                         inventorysword.
                     
 :- dynamic(createarcher/1).
@@ -26,6 +27,7 @@ createarcher(X) :-      asserta(class(X,archer)),
                         asserta(level(X,1)),
                         asserta(positionPlayer(X,1,1)),    /* inisiasi posisi awal di map */
                         asserta(gold(X,100)),
+                        asserta(ketemuMusuh(0)),
                         inventoryarcher.
                     
 :- dynamic(createsorcerer/1).
@@ -39,6 +41,7 @@ createsorcerer(X) :-    asserta(class(X,sorcerer)),
                         asserta(level(X,1)),
                         asserta(positionPlayer(X,1,1)),    /* inisiasi posisi awal di map */
                         asserta(gold(X,100)),
+                        asserta(ketemuMusuh(0)),
                         inventorysorcerer.
 
 checkstats(Username) :- write('Username : '), write(Username), nl,
