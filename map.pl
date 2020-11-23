@@ -1,9 +1,9 @@
 /* Map yang ingin dibentuk berukuran 20x20 */
 
-position(pagar,0,_).
-position(pagar,19,_). 
-position(pagar,_,0).
-position(pagar,_,19). 
+position(pagar,0,Kolom) :-  Kolom >= 0, Kolom < 20.
+position(pagar,19,Kolom) :- Kolom >= 0, Kolom < 20. 
+position(pagar,Baris,0) :- Baris >= 0, Baris < 20.
+position(pagar,Baris,19) :- Baris >= 0, Baris < 20.
 
 /* Posisi Store dan Quest */
 position(store,2,3).
@@ -52,16 +52,19 @@ printLine(Baris,19) :- map(Baris,19), nl, NextBaris is Baris+1, NextBaris < 20, 
 printLine(Baris,Kolom) :- map(Baris,Kolom), NextKolom is Kolom+1, printLine(Baris,NextKolom).
 
 map(Baris,Kolom) :- position(X,Baris,Kolom),
-                    ( X == store -> write('S');
-                    X == quest -> write('Q');
-                    X == ogre -> write('O');
-                    X == wolf -> write('W');
-                    X == golem -> write('G');
-                    X == viper -> write('V');
-                    X == miniboss -> write('M');
-                    X == boss -> write('B');
-                    X == pagar -> write('#');
-                    write('-')).
+                    ( X = store -> write('S');
+                    X = quest -> write('Q');
+                    X = ogre -> write('O');
+                    X = wolf -> write('W');
+                    X = golem -> write('G');
+                    X = viper -> write('V');
+                    X = miniboss -> write('M');
+                    X = boss -> write('B');
+                    X = pagar -> write('#')).
 
-/* TODO benerin error, gatau kenapa error terus salahnya dimana saya tak tau :( */
+map(Baris,Kolom) :- positionPlayer(_,Baris,Kolom), write('P').
+
+map(Baris,Kolom) :- \+position(_,Baris,Kolom), write('-').
+
+/* TODO Pergerakan Player */
                     
