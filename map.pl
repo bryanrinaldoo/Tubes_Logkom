@@ -67,4 +67,5 @@ map(Baris,Kolom) :- positionPlayer(_,Baris,Kolom), write('P').
 map(Baris,Kolom) :- \+position(_,Baris,Kolom), write('-').
 
 /* TODO Pergerakan Player */
+/* test commit */
                     
