@@ -204,6 +204,21 @@ unuseAccesory(Item) :-  (equipArm(Item) -> downStatsac(Item),
                         write(' Item unequipped!'), nl;
                         write('???? You don\'t even wear it ???'), nl). 
 
+usePotion(Item) :-  (cekBag(Item), potioncheck(Item,Class),
+                    class(_,Class) -> 
+                    retract(stored(Item,X)),
+                    Y is X-1, 
+                    asserta(stored(Item,Y)),
+
+                    upPotion(Item),
+
+                    retract(bagspace(Prev)),
+                    New is Prev - 1,
+                    asserta(bagspace(New)),
+
+                    write('Potion used!'),nl;
+                    \+(cekBag(Item)) -> write('You don\'t have this item. Go to the store to buy it'),nl).
+                    
 /*up and down stats weapon*/
 upStatswp(Item) :-  class(User,Class), weaponcheck(Item,Class), itemlevel(Item,Level),
                     (Level == wood -> retract(attack(User,Prev)), New is Prev + 2, asserta(attack(User,New));
@@ -242,4 +257,10 @@ downStatsac(Item) :-    class(User,Class), accesorycheck(Item,Class), itemlevel(
                         Level == iron -> retract(specialattack(User,Prev)), New is Prev - 4, asserta(specialattack(User,New));
                         Level == diamond -> retract(specialattack(User,Prev)), New is Prev - 6, asserta(specialattack(User,New));
                         Level == legendary -> retract(specialattack(User,Prev)), New is Prev - 8, asserta(specialattack(User,New))).
+
+upPotion(Item) :-   class(User,Class), potioncheck(Item,Class),
+                    (Item == health_potion -> retract(health(User,Prev)), New is Prev + 5, asserta(health(User,New));
+                    Item == big_health_potion -> retract(health(User,Prev)), New is Prev + 10, asserta(health(User,New));
+                    Item == attack_potion -> retract(attack(User,Prev)), New is Prev + 5, asserta(attack(User,New));
+                    Item == defense_potion -> retract(defense(User,Prev)), New is Prev + 5, asserta(defense(User,New))).
 
