@@ -2,17 +2,7 @@ isClass(swordsman).
 isClass(archer).
 isClass(sorcerer).
 
-:- dynamic(class/2).
-:- dynamic(health/2).
-:- dynamic(attack/2).
-:- dynamic(defense/2).
-:- dynamic(speed/2).
-:- dynamic(specialattack/2).
-:- dynamic(exp/2).
-:- dynamic(level/2).
-:- dynamic(positionPlayer/2).
-:- dynamic(gold/2).
-
+:- dynamic(createswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(health(X,10)),
                         asserta(attack(X,5)),
@@ -25,6 +15,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(gold(X,100)),
                         inventorysword.
                     
+:- dynamic(createarcher/1).
 createarcher(X) :-      asserta(class(X,archer)),
                         asserta(health(X,10)),
                         asserta(attack(X,5)),
@@ -37,6 +28,7 @@ createarcher(X) :-      asserta(class(X,archer)),
                         asserta(gold(X,100)),
                         inventoryarcher.
                     
+:- dynamic(createsorcerer/1).
 createsorcerer(X) :-    asserta(class(X,sorcerer)),
                         asserta(health(X,9)),
                         asserta(attack(X,5)),
