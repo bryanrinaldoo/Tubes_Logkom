@@ -43,6 +43,7 @@ position(miniboss,16,9).
 /* Boss */
 position(boss,18,18).
 
+/* Print Map */
 map :-printLine(0,0).
 
 printLine(19,19) :- map(19,19),nl.
@@ -64,8 +65,27 @@ map(Baris,Kolom) :- position(X,Baris,Kolom),
 
 map(Baris,Kolom) :- positionPlayer(_,Baris,Kolom), write('P').
 
-map(Baris,Kolom) :- \+position(_,Baris,Kolom), write('-').
+map(Baris,Kolom) :- \+position(_,Baris,Kolom), \+positionPlayer(_,Baris,Kolom), write('-').
 
-/* TODO Pergerakan Player */
-/* test commit */
+/* Jalan-jalan */
+:-dynamic(ketemuMusuh/2).
+
+w :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1, NextBaris > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)).
+
+s :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1, NextBaris < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)).
+
+a :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1, NextKolom > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)).
+
+d :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1, NextKolom < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)).
+
+
+/* Akses Store */
+store :- position(store,BarisStore,KolomStore), positionPlayer(_,BarisPlayer,KolomPlayer), JarakBaris is (BarisStore-BarisPlayer)*(BarisStore-BarisPlayer), JarakKolom is (KolomStore-KolomPlayer)*(KolomStore-KolomPlayer), Jarak is JarakBaris+JarakKolom,
+        (Jarak <= 2 -> /*TODO SHOP*/ ;
+        write('Oops, kamu terlalu jauh dari Store!')).
+
+
+/* TODO Akses Store */
+/* TODO Akses Quest */
+/* TODO kemungkinan ketemu musuh saat jalan-jalan */
                     
