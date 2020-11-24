@@ -76,7 +76,21 @@ sellitem :- write('Your bag contains : '), nl, nl,
             write('What do you want to sell? '), read(Sell),nl,
             
             (cekBag(Sell) -> 
-            (hargaitem25(Sell) -> 
+            (hargaitem20(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 20,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('20 gold has already been added!'),!);
+
+            hargaitem40(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 40,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('40 gold has already been added!'),!);
+
+            hargaitem25(Sell) -> 
             (retract(gold(User,Balance)),
             New is Balance + 25,
             asserta(gold(User,New)),
