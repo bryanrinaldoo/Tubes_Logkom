@@ -79,6 +79,13 @@ itemlevel(legendary_staff,legendary).
 itemlevel(legendary_armor,legendary).
 itemlevel(legendary_ring,legendary).
 
+hargaitem25(Item) :- itemlevel(Item,wood).
+hargaitem50(Item) :- itemlevel(Item,iron).
+hargaitem100(Item) :- itemlevel(Item,diamond).
+hargaitem200(Item) :- itemlevel(Item,legendary).
+hargaitem20 :- potioncheck(health_potion,_);potioncheck(attack_potion,_);potioncheck(defense_potion,_).
+hargaitem40 :- potioncheck(big_health_potion,_).
+
 :- dynamic(equipWpn/1).
 :- dynamic(equipArm/1).
 :- dynamic(equipAcc/1).

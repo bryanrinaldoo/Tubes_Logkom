@@ -67,6 +67,43 @@ buyitem :-      write('---Here what i sell today---'),nl,
                 write('Thankyou For Shopping!'),nl,!;
                 write('Your Gold is not enough! Sell some item!'),!)).
 
-sellitem :- write('Masih belum jadi pak wkkwwk').
+sellitem :- write('Your bag contains : '), nl, nl,
+            forall((cekBag(Item)), 
+            (banyakitem(Item, Count), 
+            write(Item), 
+            write(' : '), 
+            write(Count), nl)), nl,
+            write('What do you want to sell? '), read(Sell),nl,
+            
+            (cekBag(Sell) -> 
+            (hargaitem25(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 25,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('25 gold has already been added!'),!);
+
+            hargaitem50(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 50,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('50 gold has already been added!'),!);
+
+            hargaitem100(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 100,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('100 gold has already been added!'),!);
+
+            hargaitem200(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 200,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('200 gold has already been added!'),!));
+
+            write('You don\'t even have that item!'),nl,!).
 
 gacha :- write('Masih belum juga pak').
