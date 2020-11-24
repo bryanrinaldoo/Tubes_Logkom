@@ -1,4 +1,4 @@
-:- dynamic(space/1).
+:- dynamic(bagspace/1).
 inventory(X) :- bagspace(X).
 
 
@@ -25,23 +25,23 @@ inventorysorcerer :-    asserta(bagspace(6)),
                         asserta(stored(health_potion, 5)),
                         asserta(stored(wooden_staff, 1)).
 
-keepitem(X) :-  (bagspace(Used), Used < 10 ->
-                (cekBag(X) -> 
-                retract(stored(X, Y)), 
-                Z is Y+1, 
-                asserta(stored(X, Z)), 
-                
-                retract(bagspace(Used)), 
-                New is Used + 1, 
-                asserta(bagspace(New));
-                
-                asserta(stored(X, 1)), 
-                
-                retract(bagspace(Used)), 
-                New is Used + 1, 
-                asserta(bagspace(New))),
-                write('Item stored!'), nl;
-                write('Your Bag already Full! Delete or  sell some item!'), nl).
+keepitem(Item) :-   (bagspace(Used), Used < 100 ->
+                    (stored(Item,Y) -> 
+                    retract(stored(Item, Y)), 
+                    Z is Y+1, 
+                    asserta(stored(Item, Z)), 
+                    
+                    retract(bagspace(Used)), 
+                    New is Used + 1, 
+                    asserta(bagspace(New));
+                    
+                    asserta(stored(Item, 1)), 
+                    
+                    retract(bagspace(Used)), 
+                    New is Used + 1, 
+                    asserta(bagspace(New))),
+                    write('Item stored!'), nl;
+                    write('Your Bag already Full! Delete or  sell some item!'), nl).
 
 deleteItem(Item) :-     (cekBag(Item) -> stored(Item, X), 
                         Y is X-1,

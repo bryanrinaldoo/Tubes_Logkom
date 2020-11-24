@@ -2,7 +2,7 @@
 :- include('inventory.pl').
 :- include('items.pl').
 :- include('map.pl').
-
+:- include('store.pl').
 menu :- write('WELCOME FIGHTER!'),nl,nl,
             write('1. start'),nl,
             write('2. Quit'),nl,nl,
