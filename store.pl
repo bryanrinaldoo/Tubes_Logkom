@@ -114,6 +114,13 @@ sellitem :- write('Your bag contains : '), nl, nl,
             deleteItem(Sell),
             write('100 gold has already been added!'),!);
 
+            hargaitem1000(Sell) -> 
+            (retract(gold(User,Balance)),
+            New is Balance + 1000,
+            asserta(gold(User,New)),
+            deleteItem(Sell),
+            write('1000 gold has already been added!'),!);
+
             hargaitem200(Sell) -> 
             (retract(gold(User,Balance)),
             New is Balance + 200,
@@ -132,12 +139,47 @@ gacha :-    random(1,100,R),nl,
             ).
 
 
-randomwood :-   write('You just got wood level item!').
+randomwood :-   random(1,100,R),nl,
+                (R =< 20 -> keepitem(wooden_sword);
+                R =< 40 -> keepitem(wooden_bow);
+                R =< 60 -> keepitem(wooden_staff);
+                R =< 80 -> keepitem(wooden_armor);
+                R =< 100 -> keepitem(wooden_ring)
+                ),nl,
+                write('You just got wood level item!').
 
-randomiron :-   write('You just got iron level item!').
+randomiron :-   random(1,100,R),nl,
+                (R =< 20 -> keepitem(iron_sword);
+                R =< 40 -> keepitem(iron_bow);
+                R =< 60 -> keepitem(iron_staff);
+                R =< 80 -> keepitem(iron_armor);
+                R =< 100 -> keepitem(iron_ring)
+                ),nl,
+                write('You just got iron level item!').
 
-randomdiamond :-   write('You just got diamond level item!').
+randomdiamond :-    random(1,100,R),nl,
+                    (R =< 20 -> keepitem(diamond_sword);
+                    R =< 40 -> keepitem(diamond_bow);
+                    R =< 60 -> keepitem(diamond_staff);
+                    R =< 80 -> keepitem(diamond_armor);
+                    R =< 100 -> keepitem(diamond_ring)
+                    ),nl,
+                    write('You just got diamond level item!').
 
-randomlegendary :-   write('You just got legendary level item!').
+randomlegendary :-  random(1,100,R),nl,
+                    (R =< 20 -> keepitem(legendary_sword);
+                    R =< 40 -> keepitem(legendary_bow);
+                    R =< 60 -> keepitem(legendary_staff);
+                    R =< 80 -> keepitem(legendary_armor);
+                    R =< 100 -> keepitem(legendary_ring)
+                    ),nl, 
+                    write('You just got legendary level item!').
 
-randompotion :-   write('You just got potion item!').
+randompotion :-     random(1,100,R),nl,
+                    (R =< 80 -> keepitem(revival_potion);
+                    R =< 100 -> keepitem(health_potion),
+                    keepitem(big_health_potion),
+                    keepitem(attack_potion),
+                    keepitem(defense_potion)
+                    ),nl,
+                    write('You just got potion item!').

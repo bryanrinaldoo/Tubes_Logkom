@@ -54,6 +54,8 @@ potioncheck(big_health_potion,Class):- isClass(Class).
 potioncheck(attack_potion,Class) :- isClass(Class).
 potioncheck(defense_potion,Class) :- isClass(Class).
 
+spcpotioncheck(revival_potion,Class) :- isClass(Class).
+
 /*level*/
 itemlevel(wooden_sword,wood).
 itemlevel(wooden_bow,wood).
@@ -83,6 +85,7 @@ itemlevel(health_potion,potion).
 itemlevel(attack_potion,potion).
 itemlevel(defense_potion,potion).
 itemlevel(big_health_potion,bigpotion).
+itemlevel(revival_potion,spcpotion).
 
 /*Harga*/
 hargaitem25(Item) :- itemlevel(Item,wood).
@@ -90,14 +93,16 @@ hargaitem50(Item) :- itemlevel(Item,iron).
 hargaitem100(Item) :- itemlevel(Item,diamond).
 hargaitem200(Item) :- itemlevel(Item,legendary).
 hargaitem20(Item) :- itemlevel(Item,potion).
-hargaitem40(Item) :- itemlevel(Item,potion).
+hargaitem40(Item) :- itemlevel(Item,bigpotion).
+hargaitem1000(Item) :- itemlevel(Item,spcpotion).
 
 :- dynamic(equipWpn/1).
 :- dynamic(equipArm/1).
 :- dynamic(equipAcc/1).
 
 useWeapon(Item) :-  (cekBag(Item), weaponcheck(Item,Class),
-                    class(_,Class) -> (equipWpn(used), used\== none -> unuseWeapon(_);
+                    class(_,Class) -> 
+                    (equipWpn(Used), Used\== none -> unuseWeapon(_);
                     retract(equipWpn(none))),
                     asserta(equipWpn(Item)),
                     
@@ -111,7 +116,8 @@ useWeapon(Item) :-  (cekBag(Item), weaponcheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
-                    write('Item equipped!'),nl;
+                    write(Item),
+                    write('Item equipped!'),nl,!;
 
                     \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
@@ -133,12 +139,12 @@ unuseWeapon(Item) :-    (equipWpn(Item) -> downStatswp(Item),
                         NewUsed is Used + 1, 
                         asserta(bagspace(NewUsed)),
 
-                        write(' Item unequipped!'), nl;
+                        write('Item unequipped!'), nl,!;
                         write('???? You don\'t even wear it ???'), nl). 
 
 
 useArmor(Item) :-   (cekBag(Item), armorcheck(Item,Class),
-                    class(_,Class) -> (equipArm(used), used\== none -> unuseArmor(_);
+                    class(_,Class) -> (equipArm(Used), Used\== none -> unuseArmor(_);
                     retract(equipArm(none))),
                     asserta(equipArm(Item)),
                     
@@ -152,7 +158,7 @@ useArmor(Item) :-   (cekBag(Item), armorcheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
-                    write('Item equipped!'),nl;
+                    write('Item equipped!'),nl,!;
 
                     \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
@@ -174,11 +180,11 @@ unuseArmor(Item) :-     (equipArm(Item) -> downStatsar(Item),
                         New is Prev + 1, 
                         asserta(bagspace(New)),
 
-                        write(' Item unequipped!'), nl;
+                        write('Item unequipped!'), nl,!;
                         write('???? You don\'t even wear it ???'), nl). 
 
 useAccesory(Item) :-    (cekBag(Item), accesorycheck(Item,Class),
-                        class(_,Class) -> (equipArm(used), used\== none -> unuseAccesory(_);
+                        class(_,Class) -> (equipAcc(Used), Used\== none -> unuseAccesory(_);
                         retract(equipArm(none))),
                         asserta(equipArm(Item)),
                         
@@ -192,7 +198,7 @@ useAccesory(Item) :-    (cekBag(Item), accesorycheck(Item,Class),
                         New is Prev - 1,
                         asserta(bagspace(New)),
 
-                        write('Item equipped!'),nl;
+                        write('Item equipped!'),nl,!;
 
                         \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
@@ -214,7 +220,7 @@ unuseAccesory(Item) :-  (equipArm(Item) -> downStatsac(Item),
                         New is Prev + 1, 
                         asserta(bagspace(New)),
 
-                        write(' Item unequipped!'), nl;
+                        write('Item unequipped!'), nl,!;
                         write('???? You don\'t even wear it ???'), nl). 
 
 usePotion(Item) :-  (cekBag(Item), potioncheck(Item,Class),

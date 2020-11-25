@@ -12,7 +12,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)),
                         asserta(positionPlayer(X,1,1)),    /* inisiasi posisi awal di map */
-                        asserta(gold(X,100)),
+                        asserta(gold(X,10000)),
                         asserta(ketemuMusuh(0)),
                         inventorysword.
                     
@@ -44,12 +44,13 @@ createsorcerer(X) :-    asserta(class(X,sorcerer)),
                         asserta(ketemuMusuh(0)),
                         inventorysorcerer.
 
-checkstats(Username) :- write('Username : '), write(Username), nl,
-                        write('Class    : '), class(Username, Class), write(Class), nl,
-                        write('Level    : '), level(Username, Level), write(Level), nl,
-                        write('Health   : '), health(Username, Health), write(Health), nl,
-                        write('Attack   : '), attack(Username, Attack), write(Attack), nl,
-                        write('Defense  : '), defense(Username, Defense), write(Defense), nl,
-                        write('Speed    : '), speed(Username, Speed), write(Speed), nl,
-                        write('EXP      : '), exp(Username, Exp), write(Exp), nl,
-                        write('Gold     : '), gold(Username, Gold), write(Gold), nl,nl.
+checkstats(Username) :- write('Username     : '), write(Username), nl,
+                        write('Class        : '), class(Username, Class), write(Class), nl,
+                        write('Level        : '), level(Username, Level), write(Level), nl,
+                        write('Health       : '), health(Username, Health), write(Health), nl,
+                        write('Attack       : '), attack(Username, Attack), write(Attack), nl,
+                        write('Spc. Attack  : '), specialattack(Username, Spcattack), write(Spcattack), nl,
+                        write('Defense      : '), defense(Username, Defense), write(Defense), nl,
+                        write('Speed        : '), speed(Username, Speed), write(Speed), nl,
+                        write('EXP          : '), exp(Username, Exp), write(Exp), nl,
+                        write('Gold         : '), gold(Username, Gold), write(Gold), nl,nl.
