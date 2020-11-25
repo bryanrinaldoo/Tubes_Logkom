@@ -31,22 +31,22 @@ armorcheck(legendary_armor,swordsman).
 armorcheck(legendary_armor,archer).
 armorcheck(legendary_armor,sorcerer).
 
-/*accesory*/
-accesorycheck(wooden_ring,swordsman).
-accesorycheck(wooden_ring,archer).
-accesorycheck(wooden_ring,sorcerer).
+/*accessory*/
+accessorycheck(wooden_ring,swordsman).
+accessorycheck(wooden_ring,archer).
+accessorycheck(wooden_ring,sorcerer).
 
-accesorycheck(iron_ring,swordsman).
-accesorycheck(iron_ring,archer).
-accesorycheck(iron_ring,sorcerer).
+accessorycheck(iron_ring,swordsman).
+accessorycheck(iron_ring,archer).
+accessorycheck(iron_ring,sorcerer).
 
-accesorycheck(diamond_ring,swordsman).
-accesorycheck(diamond_ring,archer).
-accesorycheck(diamond_ring,sorcerer).
+accessorycheck(diamond_ring,swordsman).
+accessorycheck(diamond_ring,archer).
+accessorycheck(diamond_ring,sorcerer).
 
-accesorycheck(legendary_ring,swordsman).
-accesorycheck(legendary_ring,archer).
-accesorycheck(legendary_ring,sorcerer).
+accessorycheck(legendary_ring,swordsman).
+accessorycheck(legendary_ring,archer).
+accessorycheck(legendary_ring,sorcerer).
 
 /*potion*/
 potioncheck(health_potion, Class) :- isClass(Class).
@@ -183,8 +183,8 @@ unuseArmor(Item) :-     (equipArm(Item) -> downStatsar(Item),
                         write('Item unequipped!'), nl,!;
                         write('???? You don\'t even wear it ???'), nl). 
 
-useAccesory(Item) :-    (cekBag(Item), accesorycheck(Item,Class),
-                        class(_,Class) -> (equipAcc(Used), Used\== none -> unuseAccesory(_);
+useAccessory(Item) :-    (cekBag(Item), accessorycheck(Item,Class),
+                        class(_,Class) -> (equipAcc(Used), Used\== none -> unuseAccessory(_);
                         retract(equipArm(none))),
                         asserta(equipArm(Item)),
                         
@@ -205,7 +205,7 @@ useAccesory(Item) :-    (cekBag(Item), accesorycheck(Item,Class),
                         write('This item not suit you!'),nl).
                         
 
-unuseAccesory(Item) :-  (equipArm(Item) -> downStatsac(Item),
+unuseAccessory(Item) :-  (equipArm(Item) -> downStatsac(Item),
                         (stored(Item,X) -> 
                         retract(stored(Item,X)), 
                         Y is X + 1, 
@@ -264,14 +264,14 @@ downStatsar(Item) :-    class(User,Class), armorcheck(Item,Class), itemlevel(Ite
                         Level == diamond -> retract(defense(User,Prev)), New is Prev - 6, asserta(defense(User,New));
                         Level == legendary -> retract(defense(User,Prev)), New is Prev - 8, asserta(defense(User,New))).
 
-/*up and down stats accesory*/
-upStatsac(Item) :-  class(User,Class), accesorycheck(Item,Class), itemlevel(Item,Level),
+/*up and down stats accessory*/
+upStatsac(Item) :-  class(User,Class), accessorycheck(Item,Class), itemlevel(Item,Level),
                     (Level == wood -> retract(specialattack(User,Prev)), New is Prev + 2, asserta(specialattack(User,New));
                     Level == iron -> retract(specialattack(User,Prev)), New is Prev + 4, asserta(specialattack(User,New));
                     Level == diamond -> retract(specialattack(User,Prev)), New is Prev + 6, asserta(specialattack(User,New));
                     Level == legendary -> retract(specialattack(User,Prev)), New is Prev + 8, asserta(specialattack(User,New))).
 
-downStatsac(Item) :-    class(User,Class), accesorycheck(Item,Class), itemlevel(Item,Level),
+downStatsac(Item) :-    class(User,Class), accessorycheck(Item,Class), itemlevel(Item,Level),
                         (Level == wood -> retract(specialattack(User,Prev)), New is Prev - 2, asserta(specialattack(User,New));
                         Level == iron -> retract(specialattack(User,Prev)), New is Prev - 4, asserta(specialattack(User,New));
                         Level == diamond -> retract(specialattack(User,Prev)), New is Prev - 6, asserta(specialattack(User,New));

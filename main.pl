@@ -53,5 +53,5 @@ help :-     alreadystart(_) ->
 helpequip :-    write('---This is the command you can  use : '),nl,nl,
                 write('- write useWeapon(<item_name>). to equip your weapon'),nl,
                 write('- write useArmor(<item_name>). to equip your weapon'),nl,
-                write('- write useAccesory(<item_name>). to equip your weapon'),nl,
+                write('- write useAccessory(<item_name>). to equip your weapon'),nl,
                 write('- write usePotion(<item_name>). to use your potion'),nl.
