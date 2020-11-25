@@ -123,4 +123,21 @@ sellitem :- write('Your bag contains : '), nl, nl,
 
             write('You don\'t even have that item!'),nl,!).
 
-gacha :- write('Masih belum juga pak').
+gacha :-    random(1,100,R),nl,
+            (R =< 50 -> randomwood;
+            R =< 75 -> randomiron;
+            R =< 90 -> randomdiamond;
+            R =< 95 -> randomlegendary;
+            R =< 100 -> randompotion
+            ).
+
+
+randomwood :-   write('You just got wood level item!').
+
+randomiron :-   write('You just got iron level item!').
+
+randomdiamond :-   write('You just got diamond level item!').
+
+randomlegendary :-   write('You just got legendary level item!').
+
+randompotion :-   write('You just got potion item!').
