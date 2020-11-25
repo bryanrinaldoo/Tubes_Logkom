@@ -45,7 +45,7 @@ help :-     alreadystart(_) ->
             write('These are the command you can use in your game : '),nl,nl,
             write('- write stats. to see your stats'),nl,
             write('- write bag. to check your inventory'),nl,
-            write('- write helpequip. to check how to equip or unequip'),nl,
+            write('- write helpequip. to check how to use item'),nl,
             write('- write map. to check where you are'),nl,
             write('----nanti ditambahin lagi help nya----'),nl,!;
             write('Start the game first fighter!').
@@ -54,7 +54,4 @@ helpequip :-    write('---This is the command you can  use : '),nl,nl,
                 write('- write useWeapon(<item_name>). to equip your weapon'),nl,
                 write('- write useArmor(<item_name>). to equip your weapon'),nl,
                 write('- write useAccesory(<item_name>). to equip your weapon'),nl,
-                write('- write unuseWeapon(<item_name>). to unequip your weapon'),nl,
-                write('- write unuseArmor(<item_name>). to unequip your weapon'),nl,
-                write('- write unuseAccesory(<item_name>). to unequip your weapon'),nl,
                 write('- write usePotion(<item_name>). to use your potion'),nl.
