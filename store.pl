@@ -1,4 +1,5 @@
-store :-    write('WELCOME TO THE STORE!'),nl,nl,
+store :-    positionPlayer(_,BarisPlayer,KolomPlayer), position(store,BarisPlayer,KolomPlayer),
+            write('WELCOME TO THE STORE!'),nl,nl,
             write('1. I want to buy!'),nl,
             write('2. I want to sell!'),nl,
             write('3. Just visiting!'),nl,nl,
@@ -6,7 +7,9 @@ store :-    write('WELCOME TO THE STORE!'),nl,nl,
             (Pickshop = 1 -> buyitem,!;
             Pickshop = 2 -> sellitem,!;
             Pickshop = 3 -> write('Till next time fighter!'),nl,!).
-                
+
+store :-    positionPlayer(_,BarisPlayer,KolomPlayer), \+position(store,BarisPlayer,KolomPlayer),
+            write('Oops, kamu tidak berada di store. Masuk ke dalam tempat berlambang \'S\' untuk akses fitur store!'),!.
 
 cekbalance :- gold(_,Balance), write(Balance).
 

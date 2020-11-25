@@ -44,10 +44,18 @@ position(miniboss,16,9).
 position(boss,18,18).
 
 /* Print Map */
-map :-printLine(0,0).
 
+/* Jika game belum dimulai map tidak ditampilkan */
+map :- \+alreadystart(_),
+        write('Kamu belum memulai game ini fighter!'),nl,!.
+
+/* Game sudah dimulai maka map bisa ditampilkan */
+map :- alreadystart(_), printLine(0,0),!.
+
+/* Basis dalam menampilkan map */
 printLine(19,19) :- map(19,19),nl.
 
+/* Rekurens dalam menampilkan map */
 printLine(Baris,19) :- map(Baris,19), nl, NextBaris is Baris+1, NextBaris < 20, printLine(NextBaris,0). /* setelah mentok 19 mengulang */
 
 printLine(Baris,Kolom) :- map(Baris,Kolom), NextKolom is Kolom+1, printLine(Baris,NextKolom).
@@ -96,22 +104,40 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPl
         Tempat = quest -> write('Fiuhh, kamu berada di dalam Quest. Monster tidak akan mengejarmu.')).
 
 /* Jalan-jalan */
-w :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1, NextBaris > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), condition.
+w :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1,
+        (NextBaris > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
+        write('Kamu berhasil bergerak ke atas.'),nl, condition;
+        write('Mentok gan:('),nl,!).
 
-s :- positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1, NextBaris < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), condition.
+s :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1,
+        (NextBaris < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
+        write('Kamu berhasil bergerak ke bawah.'),nl, condition;
+        write('Mentok gan:('),nl,!).
 
-a :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1, NextKolom > 0, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), condition.
+a :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1,
+        (NextKolom > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
+        write('Kamu berhasil bergerak ke kiri.'),nl, condition;
+        write('Mentok gan:('),nl,!).
 
-d :- positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1, NextKolom < 19, retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), condition.
+d :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1,
+        (NextKolom < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
+        write('Kamu berhasil bergerak ke kanan.'),nl, condition;
+        write('Mentok gan:('),nl,!).
 
 /* Teleport */
-teleport(Lokasi) :- (Lokasi = store -> position(store,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom));
-                    Lokasi = quest -> position(quest,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom));
-                    Lokasi = ogre -> position(ogre,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
-                    Lokasi = wolf -> position(wolf,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)); 
-                    Lokasi = golem -> position(golem,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
-                    Lokasi = viper -> position(viper,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
-                    Lokasi = miniboss -> position(miniboss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom));
-                    Lokasi = boss -> position(boss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom))).
+teleport(Lokasi) :- position(Lokasi,_,_),
+                    (Lokasi = store -> position(store,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom)),!;
+                    Lokasi = quest -> position(quest,Baris,Kolom), TargetBaris is Baris-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,TargetBaris,Kolom)),!;
+                    Lokasi = ogre -> position(ogre,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
+                    Lokasi = wolf -> position(wolf,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!; 
+                    Lokasi = golem -> position(golem,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
+                    Lokasi = viper -> position(viper,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
+                    Lokasi = miniboss -> position(miniboss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
+                    Lokasi = boss -> position(boss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!),
+                    write('Yeay, kamu berhasil teleport!'),nl, 
+                    condition.    
+
+teleport(Lokasi) :- \+position(Lokasi,_,_), 
+                    write('Oops, lokasi yang kamu masukkan tidak ada.').
 
                     
