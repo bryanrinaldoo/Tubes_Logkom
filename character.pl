@@ -54,3 +54,9 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
                         write('Speed        : '), speed(Username, Speed), write(Speed), nl,
                         write('EXP          : '), exp(Username, Exp), write(Exp), nl,
                         write('Gold         : '), gold(Username, Gold), write(Gold), nl,nl.
+
+
+%%============================ Leveling ==================== (R. B. Wishnumurti / 13519203)
+
+playerLevel :- 
+    level
