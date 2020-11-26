@@ -6,19 +6,93 @@
 :- include('savefile.pl').
 :- include('loadfile.pl').
 
-menu :- write('WELCOME FIGHTER!'),nl,nl,
+menu :-     
+            write('                                WELCOME FIGHTER!'),nl,nl,
+            write('                    _             _,-----------._        '),nl,
+            write('                              _,-_,-----------._`-._    '),nl,
+            write('                             ,_,-  ___________  `-._.'),nl,
+            write('                          ''   ,     ___________ -._  ..'),nl,
+            write('                        ,,    ,,                `-.`.  `.`.'),nl,
+            write('                       /,   ,,        >|<           ..   \\\\'),nl,
+            write('                      //  ,,      ><  .^.  ><        ..    \\\\'),nl,
+            write('                     // //        ><   / | \\   ><      \\\\   \\\\'),nl,
+            write('                    //  //      ><    \\/\\^/\\/    ><     \\\\  \\\\'),nl,
+            write('                   ;;  ;;              `---              ::  ::'),nl,
+            write('                   ||  ||              (____              ||  ||'),nl,
+            write('                  _||__||_            .-----.            _||__||_'),nl,
+            write('                 (o.____.o)____         ---        ____(o.____.o)'),nl,
+            write('                   |    | /,--.)                   (,--.\\ |    |'),nl,
+            write('                   |    |((  -`___               ___`   ))|    |'),nl,
+            write('                   |    | \\,'',  `.             .  .``.//  |    |'),nl,
+            write('                   |    |  // (___, .          . .___) \\  |    |'),nl,
+            write('                  /|    | ;;))  ____) .      . (____  ((\\ |    |\\'),nl,
+            write('                  \\|.__ | ||/ ..--.\\/        `/,--.`. \\;: | __,|;'),nl,
+            write('                   |`-,`;.| :/ /,  `)-        `-(  `.\\ \\: |.;,-|'),nl,
+            write('                   |   `..    / \\__.          `.__/ \\   ,.|    |'),nl,
+            write('                   |    |,\\  /,                     ,\\  /,|    |'),nl,
+            write('                   |    ||: : )          .          ( : :||    |'),nl,
+            write('                  /|    ||: |/  .      ./|\\.      .  \\| :;|    |\\'),nl,
+            write('                  \\|.__ |/  :  ,/-    <--:-->    ,\\.  ;  \\| __,|;'),nl,
+            write('                   |`-.``:   /-.     \\|//     ,-\\`;   ;,- |    |'),nl,
+            write('                   |    ||               .               ||    |'),nl,
+            write('                   |    ||  :                         :  ||    |'),nl,
+            write('                   |    ||  |                         |  ||    |'),nl,
+            write('                   |    ||  |                         |  ||    |'),nl,
+            write('                   |    ||  |           _             |  ||    |'),nl,
+            write('                   |    |   |         ((|))           |   |    |'),nl,
+            write('                   ;____:    ._         .           _.   ;____:'),nl,
+            write('                  {______}     \\___________________/     {______}'),nl,
+            write('                  |______|_______________________________|______|'),nl,nl,nl,
             write('1. start'),nl,
             write('2. Quit'),nl,nl,
             write('Choose what you want to do fighter! : '), read_integer(Pick),nl,
 
-            (Pick = 1 -> write('Let\'s start the journey!'), nl, start, !;
-            Pick = 2 -> write('Till next time fighter!'),nl, !).
+            (Pick = 1 -> 
+            write('   ______________________________'),nl,
+            write(' /  |                            |.'),nl,
+            write('|   |           *****            |.'),nl,
+            write('|_ _|                            |.'),nl,
+            write('    |     Let\'s                  |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |             start          |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |       the                  |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |              journey!      |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |          *****             |.'),nl,
+            write('    |   _________________________|___'),nl,
+            write('    |  /                            /.'),nl,
+            write('    |_/____________________________/.'),nl,nl, start, !;
+            Pick = 2 -> 
+            write('   ______________________________'),nl,
+            write(' /  |                            |.'),nl,
+            write('|   |           *****            |.'),nl,
+            write('|_ _|                            |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |          Till              |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |            next            |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |              time          |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |               fighter!     |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |                            |.'),nl,
+            write('    |           *****            |.'),nl,
+            write('    |   _________________________|___'),nl,
+            write('    |  /                            /.'),nl,
+            write('    |_/____________________________/.'),nl,
+            nl, !).
 
 :- dynamic(alreadystart/1).
 
 start    :- alreadystart(_), write('You already start the journey!'), !,nl.
 
 start    :- \+alreadystart(_), asserta(alreadystart(1)),
+
             write('Please tell me your name fighter : '), read(Username),nl,
             write('This is the class that you can choose: '),nl, 
             write('1. Swordsman'),nl,
@@ -28,11 +102,36 @@ start    :- \+alreadystart(_), asserta(alreadystart(1)),
             write('Choose wisely: '), read_integer(Pickclass), nl,
 
             (Pickclass = 1 -> createswordsman(Username),nl,
-            write('You have become a Swordsman'),nl ;
+            write('You have become a Swordsman'),nl,
+            write('     =='),nl,
+            write('     ||_________________________'),nl,
+            write('OOOOO||_________________________>'),nl,
+            write('     ||'),nl,
+            write('     =='),nl;        
+
             Pickclass = 2 -> createarcher(Username),
-            write('You have become a Archer'),nl ;
+            write('You have become a Archer'),nl, 
+            write('   _'),nl,
+            write('.-` |___________________________///'),nl,
+            write('`-._|                           \\\\\\'),nl;
+
             Pickclass = 3 -> createsorcerer(Username),
-            write('You have become a Sorcerer'),nl).
+            write('You have become a Sorcerer'),nl,nl,
+            
+            write('             _'),nl,
+            write('     _____   0    _____'),nl,
+            write('    vVVVVV __|__ VVVVVv '),nl,
+            write('   vVVVVVVvvv|vvvVVVVVVv'),nl,
+            write('  vVVVV      |      VVVVv'),nl,
+            write(' vVVV        |       VVVv'),nl,
+            write(' vVV         |_)      VVv'),nl,
+            write(' v          (|          v'),nl,
+            write('             |)'),nl,
+            write('            (|  '),nl,
+            write('             |)'),nl,
+            write('            (| '),nl,
+            write('             |`'),nl,
+            write('             |'),nl).
 
 stats    :- class(Username,_),
             checkstats(Username),!.

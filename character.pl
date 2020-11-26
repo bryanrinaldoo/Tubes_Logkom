@@ -59,7 +59,7 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
 %%============================ Leveling ==================== (R. B. Wishnumurti / 13519203)
 
 leveling(X) :- 
-              checkstats(Username)
+              checkstats(Username),
               xplevelup is Level*10 + 70,
               xplevelup =< Exp,
               expNew is Exp - xplevelup,
@@ -98,7 +98,7 @@ leveling(X) :-
                   asserta(attack(Username,NewAttack)),
 
                   retract(defense(Username,Defense)),
-                  asserta(defense(Username,NewDefense)),
+                  asserta(defense(Username,NewDefense))
 
                 
 
@@ -109,6 +109,6 @@ leveling(X) :-
 
 
 
-              )
+              ).
 
 
