@@ -1,9 +1,10 @@
 %% ================= WIN (GOAL) STATE =======================
-
+:- include('enemy.pl').
 goalState :-
 
+    aghanim(health(0))
     open('win.txt',read,Str), !,
-    enemyKill(X),
+    
 	X >= 2, 
 
     write('=========================================================================='),nl,nl,

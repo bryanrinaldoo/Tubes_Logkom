@@ -58,3 +58,57 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
 
 %%============================ Leveling ==================== (R. B. Wishnumurti / 13519203)
 
+leveling(X) :- 
+              checkstats(Username)
+              xplevelup is Level*10 + 70,
+              xplevelup =< Exp,
+              expNew is Exp - xplevelup,
+              levelUp is Level + 1,
+
+              ( 
+                  Class = swordsman,
+                  healthGain is Level*3 + 10,
+                  attackGain is Level*3 + 10,
+                  defenseGain is Level*4 + 10;
+
+                  class = archer,
+                  healthGain is Level*3 + 9,
+                  attackGain is Level*3 + 12,
+                  defenseGain is Level*4 + 8;
+
+                  class = sorcerer,
+                  healthGain is Level*3 + 13,
+                  attackGain is Level*3 + 8,
+                  defenseGain is Level*4 + 12;
+
+                  NewHealth is healthGain + Health,
+                  NewAttack is attackGain + Attack,
+                  NewDefense is defenseGain + Defense,
+
+                  retract(exp(Username,Exp)),
+                  asserta(exp(Username,expNew)),
+                  
+                  retract(level(Username,Level)),
+                  asserta(level(Username,levelUp)),
+
+                  retract(health(Username,Health)),
+                  asserta(health(Username,healthGain)),
+
+                  retract(attack(Username,Attack)),
+                  asserta(attack(Username,NewAttack)),
+
+                  retract(defense(Username,Defense)),
+                  asserta(defense(Username,NewDefense)),
+
+                  retract(checkstats)
+
+
+
+
+
+
+
+
+              )
+
+
