@@ -12,7 +12,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                         asserta(exp(X,0)),
                         asserta(level(X,1)),
                         asserta(positionPlayer(X,1,1)),    /* inisiasi posisi awal di map */
-                        asserta(gold(X,10000)),
+                        asserta(gold(X,100)),
                         asserta(ketemuMusuh(0)),
                         inventorysword.
                     
