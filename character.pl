@@ -58,5 +58,3 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
 
 %%============================ Leveling ==================== (R. B. Wishnumurti / 13519203)
 
-playerLevel :- 
-    level

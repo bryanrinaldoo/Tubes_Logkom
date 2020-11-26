@@ -1,0 +1,48 @@
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/main.pl
+
+alreadystart(1).
+
+% file: user_input
+
+attack(grevi, 5).
+
+% file: user_input
+
+class(grevi, archer).
+
+% file: user_input
+
+defense(grevi, 6).
+
+% file: user_input
+
+exp(grevi, 0).
+
+% file: user_input
+
+gold(grevi, 100).
+
+% file: user_input
+
+health(grevi, 10).
+
+% file: user_input
+
+ketemuMusuh(0).
+
+% file: user_input
+
+level(grevi, 1).
+
+% file: user_input
+
+positionPlayer(grevi, 1, 1).
+
+% file: user_input
+
+specialattack(grevi, 8).
+
+% file: user_input
+
+speed(grevi, 5).
