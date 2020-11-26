@@ -100,7 +100,7 @@ leveling(X) :-
                   retract(defense(Username,Defense)),
                   asserta(defense(Username,NewDefense)),
 
-                  retract(checkstats)
+                
 
 
 

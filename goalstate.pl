@@ -1,12 +1,11 @@
-%% ================= WIN (GOAL) STATE =======================
 :- include('enemy.pl').
+:- include('character.pl').
+
+
 goalState :-
 
-    aghanim(health(0))
-    open('win.txt',read,Str), !,
-    
-	X >= 2, 
-
+    health(aghanim,X),
+    X <= 0,
     write('=========================================================================='),nl,nl,
     write('    __     ______  _    _   __          _______ __  __                    '),nl,
     write('    \ \   / / __ \| |  | |  \ \        / /_   _| \ | |                    '),nl,
