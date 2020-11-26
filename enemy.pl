@@ -5,9 +5,13 @@ ogre(X) :-
     asserta(defense(X,20)),
     asserta(speed(X,9)),
     asserta(specialattack(X,minibash,45)),
-    asserta(level(X,5)),
-    asserta(killExp(X,20)),
-    asserta(killGold(X,150)).
+    asserta(level(X,3)),
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 20,
+    NewG is PrevG + 150,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
 
 wolf(X) :-
     asserta(class(X,monster)),
@@ -16,9 +20,13 @@ wolf(X) :-
     asserta(defense(X,25)),
     asserta(speed(X,14)),
     asserta(specialattack(X,sharpbite,85)),
-    asserta(level(X,10)),
-    asserta(killExp(X,50)),
-    asserta(killGold(X,250)).
+    asserta(level(X,8)),
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 50,
+    NewG is PrevG + 250,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
 
 golem(X) :-
     asserta(class(X,monster)),
@@ -27,9 +35,13 @@ golem(X) :-
     asserta(defense(X,45)),
     asserta(speed(X,19)),
     asserta(specialattack(X,avalanche,135)),
-    asserta(level(X,10)),
-    asserta(killExp(X,150)),
-    asserta(killGold(X,500)).
+    asserta(level(X,14)),
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 150,
+    NewG is PrevG + 500,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
 
 viper(X) :-
     asserta(class(X,monster)),
@@ -38,9 +50,13 @@ viper(X) :-
     asserta(defense(X,70)),
     asserta(speed(X,24)),
     asserta(specialattack(X,poisonbreak,195)),
-    asserta(level(X,15)),
-    asserta(killExp(X,450)),
-    asserta(killGold(X,750)).
+    asserta(level(X,17)),
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 450,
+    NewG is PrevG + 750,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
 
 sorrowling(X) :-
     asserta(class(X,miniboss)),
@@ -50,8 +66,12 @@ sorrowling(X) :-
     asserta(speed(X,34)),
     asserta(specialattack(X,phantomslash,300)),
     asserta(level(X,20)),
-    asserta(killExp(X,750)),
-    asserta(killGold(X,1000)).
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 750,
+    NewG is PrevG + 1000,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
 
 aghanim(X) :-
     asserta(class(X,boss)),
@@ -60,6 +80,10 @@ aghanim(X) :-
     asserta(defense(X,250)),
     asserta(speed(X,50)),
     asserta(specialattack(X,prismaticbolt,600)),
-    asserta(level(X,25)),
-    asserta(killExp(X,1500)),
-    asserta(killGold(X,2000)).
+    asserta(level(X,22)),
+    retract(xp(User,PrevX)),
+    retract(gold(User,PrevG)),
+    NewX is PrevX + 1500,
+    NewG is PrevG + 2000,
+    asserta(xp(User,NewX)),
+    asserta(gold(User,NewG)).
