@@ -8,7 +8,7 @@ battle(A,B) :-
 	write('2. Special Attack'),nl,
 	write('3. Use Potion'),nl,
 	write('4. Run'),nl,
-	write('Silahkan pilih aksi:'),nl,
+	write('Choose what you want to do:'),nl,
 	read(X),
 	tulis(X,A,B),nl,
 	diserang(A,B,Z),write('Kamu telah terkena serangan musuh,HP tersisa: '),write(Z),nl.
@@ -43,7 +43,6 @@ battle(aghanim) :- fight.
 
 battle(sorrowling) :- fight.
 
-/* fight lawan monster biasa */
 counterattack(NamaMonster) :- positionPlayer(NamaPlayer,_,_),
 							  turn(X), attack(NamaMonster, AtkMonster), specialattack(NamaMonster,_,SpcAtkMonster),
 							  health(NamaPlayer,CurrHealthPlayer,MaxHealthPlayer), defense(NamaPlayer,DefPlayer),
@@ -54,6 +53,7 @@ counterattack(NamaMonster) :- positionPlayer(NamaPlayer,_,_),
 							  NewHealth is CurrHealthPlayer-Dmg, retract(health(NamaPlayer,_,_)), asserta(health(NamaPlayer,NewHealth,MaxHealthPlayer)),
 							  write('Ouch! You got '), write(Dmg), write(' damage from'), write(NamaMonster),nl,nl.
 
+/* fight lawan monster biasa */
 fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_,_),
 	nl,
 	write('1. Basic Attack'),nl,
@@ -85,69 +85,69 @@ fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_,_),
 	HealthPlayer =< 0 ->
 					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
 
-/* fight melawan boss */
+/* fight lawan boss */
 fight :-  class(NamaMonster,boss), positionPlayer(NamaPlayer,_,_),
-	nl,nl,
+	nl,
 	write('1. Basic Attack'),nl,
 	write('2. Special Attack'),nl,
 	write('3. Use Potion'),nl,
-	write('4. Run'),nl,
-	write('Silahkan pilih aksi: '),read_integer(X),
-	(X==1 -> attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
+	write('4. Run'),nl,nl,
+	write('Silahkan pilih aksi: '),read_integer(X), nl,
+	(X=1 ->  attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+	X=2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
 			Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==3 ->  usePotion(health_potion) ;
-	X==4 -> write('U cant run in front boss/miniboss :) gluck!'),nl,!),
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+	X=3 ->  usePotion(health_potion),!;
+	X==4 ->  write('U cant run in front of boss/miniboss :) gluck!'),nl,!),
 
-	(health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr =< 0 -> 
-					write('Wow, you have killed '), write(NamaMonster),
+	counterattack(NamaMonster), health(NamaPlayer,HealthPlayer,_),
+	(HealthPlayer > 0, NewHealthMnstr =< 0 -> 
+					write('Wow, you have killed '), write(NamaMonster),nl,
 					write('You got '), killGold(NamaMonster,GValue), write(GValue), write(' gold'),nl,
 					write('You got '), killExp(NamaMonster,EValue), write(EValue), write(' exp'),nl,
 					gold(NamaPlayer,CurrGold), NewGold is CurrGold + GValue, retract(gold(_,_)), asserta(gold(NamaPlayer,NewGold)), 
-					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), leveling(NamaPlayer),
+					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), deletemonster(NamaMonster), 
 					leveling(NamaPlayer),!;
-	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr > 0 -> 
-					fight;
-	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer=<0 ->
+	HealthPlayer > 0, NewHealthMnstr > 0 -> fight,!;
+	HealthPlayer =< 0 ->
 					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
 
 /* fight melawan miniboss */
 
 fight :-  class(NamaMonster,miniboss), positionPlayer(NamaPlayer,_,_),
-	nl,nl,
+	nl,
 	write('1. Basic Attack'),nl,
 	write('2. Special Attack'),nl,
 	write('3. Use Potion'),nl,
-	write('4. Run'),nl,
-	write('Silahkan pilih aksi: '),read_integer(X),
-	(X==1 -> attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
+	write('4. Run'),nl,nl,
+	write('Silahkan pilih aksi: '),read_integer(X), nl,
+	(X=1 ->  attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+	X=2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
 			Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==3 ->  usePotion(health_potion) ;
-	X==4 ->  write('U cant run in front boss/miniboss :) gluck!'),nl,!),
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+	X=3 ->  usePotion(health_potion),!;
+	X==4 ->  write('U cant run in front of boss/miniboss :) gluck!'),nl,!),
 
-	(health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr =< 0 -> 
-					write('Wow, you have killed '), write(NamaMonster),
+	counterattack(NamaMonster), health(NamaPlayer,HealthPlayer,_),
+	(HealthPlayer > 0, NewHealthMnstr =< 0 -> 
+					write('Wow, you have killed '), write(NamaMonster),nl,
 					write('You got '), killGold(NamaMonster,GValue), write(GValue), write(' gold'),nl,
 					write('You got '), killExp(NamaMonster,EValue), write(EValue), write(' exp'),nl,
 					gold(NamaPlayer,CurrGold), NewGold is CurrGold + GValue, retract(gold(_,_)), asserta(gold(NamaPlayer,NewGold)), 
-					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), leveling(NamaPlayer),
+					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), deletemonster(NamaMonster), 
 					leveling(NamaPlayer),!;
-	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr > 0 -> 
-					fight;
-	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer=<0 ->
+	HealthPlayer > 0, NewHealthMnstr > 0 -> fight,!;
+	HealthPlayer =< 0 ->
 					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
 
 

@@ -1,8 +1,16 @@
 store :-    positionPlayer(_,BarisPlayer,KolomPlayer), position(store,BarisPlayer,KolomPlayer),
-            write('WELCOME TO THE STORE!'),nl,nl,
-            write('1. I want to buy!'),nl,
-            write('2. I want to sell!'),nl,
-            write('3. Just visiting!'),nl,nl,
+            write(' ____________________________'),nl,
+            write('|  ________________________  |'),nl,
+            write('| |                        | |'),nl,
+            write('| |  WELCOME TO THE STORE! | |'),nl,
+            write('| |                        | |'),nl,
+            write('| |   1. I want to buy!    | | '),nl,
+            write('| |                        | | '),nl,
+            write('| |   2. I want to sell!   | | '),nl,
+            write('| |                        | |'),nl,
+            write('| |   3. Just visiting!    | |'),nl,
+            write('| |________________________| |'),nl,
+            write('|____________________________|'),nl,nl,
             write('what do you want to do? '),read_integer(Pickshop),nl,
             (Pickshop = 1 -> buyitem,!;
             Pickshop = 2 -> sellitem,!;
@@ -13,12 +21,13 @@ store :-    positionPlayer(_,BarisPlayer,KolomPlayer), \+position(store,BarisPla
 
 cekbalance :- gold(_,Balance), write(Balance).
 
-buyitem :-      write('---Here what i sell today---'),nl,
-                write('1. Health Potion      |   25'),nl,
-                write('2. Big Health Potion  |   50'),nl,
-                write('3. Attack Potion      |   25'),nl,
-                write('4. Defense Potion     |   25'),nl,
-                write('5. Gacha              |   100'),nl,nl,
+buyitem :-      write('|----- Here what i sell today -----'),nl,
+                write('|No.| Item name          | Price |'),nl,
+                write('|1. | Health Potion      |   25  |'),nl,
+                write('|2. | Big Health Potion  |   50  |'),nl,
+                write('|3. | Attack Potion      |   25  |'),nl,
+                write('|4. | Defense Potion     |   25  |'),nl,
+                write('|5. | Gacha              |  100  |'),nl,nl,
                 gold(_,Balance), 
                 write('Your Balance right now :'),
                 write(Balance),nl,nl,
@@ -114,13 +123,6 @@ sellitem :- write('Your bag contains : '), nl, nl,
             deleteItem(Sell),
             write('100 gold has already been added!'),!);
 
-            hargaitem1000(Sell) -> 
-            (retract(gold(User,Balance)),
-            New is Balance + 1000,
-            asserta(gold(User,New)),
-            deleteItem(Sell),
-            write('1000 gold has already been added!'),!);
-
             hargaitem200(Sell) -> 
             (retract(gold(User,Balance)),
             New is Balance + 200,
@@ -134,8 +136,7 @@ gacha :-    random(1,100,R),nl,
             (R =< 50 -> randomwood;
             R =< 75 -> randomiron;
             R =< 90 -> randomdiamond;
-            R =< 95 -> randomlegendary;
-            R =< 100 -> randompotion
+            R =< 100 -> randomlegendary
             ).
 
 
@@ -201,20 +202,3 @@ randomlegendary :-  random(1,100,R),nl,
                     write('        |___/                             |___/ '),nl,nl,
                     write('You just got legendary level item!').
 
-randompotion :-     random(1,100,R),nl,
-                    (R =< 80 -> keepitem(revival_potion);
-                    R =< 100 -> keepitem(health_potion),
-                    keepitem(big_health_potion),
-                    keepitem(attack_potion),
-                    keepitem(defense_potion)
-                    ),nl,
-                    write('             _   _                 '),nl,
-                    write('            | | (_)                '),nl,
-                    write(' _ __   ___ | |_ _  ___  _ __  ___ '),nl,
-                    write('|  _ \\ / _ \\| __| |/ _ \\|  _ \\/ __|'),nl,
-                    write('| |_) | (_) | |_| | (_) | | | \\__ \\'),nl,
-                    write('| .__/ \\___/ \\__|_|\\___/|_| |_|___/'),nl,
-                    write('| |                                '),nl,
-                    write('|_|                                '),nl,nl,
-
-                    write('You just got potion item!').

@@ -54,8 +54,6 @@ potioncheck(big_health_potion,Class):- isClass(Class).
 potioncheck(attack_potion,Class) :- isClass(Class).
 potioncheck(defense_potion,Class) :- isClass(Class).
 
-spcpotioncheck(revival_potion,Class) :- isClass(Class).
-
 /*level*/
 itemlevel(wooden_sword,wood).
 itemlevel(wooden_bow,wood).
@@ -85,7 +83,6 @@ itemlevel(health_potion,potion).
 itemlevel(attack_potion,potion).
 itemlevel(defense_potion,potion).
 itemlevel(big_health_potion,bigpotion).
-itemlevel(revival_potion,spcpotion).
 
 /*Harga*/
 hargaitem25(Item) :- itemlevel(Item,wood).
@@ -94,7 +91,6 @@ hargaitem100(Item) :- itemlevel(Item,diamond).
 hargaitem200(Item) :- itemlevel(Item,legendary).
 hargaitem20(Item) :- itemlevel(Item,potion).
 hargaitem40(Item) :- itemlevel(Item,bigpotion).
-hargaitem1000(Item) :- itemlevel(Item,spcpotion).
 
 :- dynamic(equipWpn/1).
 :- dynamic(equipArm/1).
