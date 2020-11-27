@@ -7,7 +7,6 @@
 :- include('loadfile.pl').
 :- include('battlemech.pl').
 :- include('enemy.pl').
-:- include('goalstate.pl').
 
 menu :-     write('                                WELCOME FIGHTER!'),nl,nl,
             write('                    _             _,-----------._        '),nl,

@@ -120,7 +120,15 @@ fight :-  class(NamaMonster,boss), positionPlayer(NamaPlayer,_,_),
 					gold(NamaPlayer,CurrGold), NewGold is CurrGold + GValue, retract(gold(_,_)), asserta(gold(NamaPlayer,NewGold)), 
 					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), deletemonster(NamaMonster), 
 					leveling(NamaPlayer),
-					goalState,!;
+					write('======================================================================='),nl,nl,
+    write('    __     ______  _    _   __          _______ __  __                    '),nl,
+    write('    \\ \\   / / __ \\| |  | |  \\ \\        / /_   _| \\ | |                    '),nl,
+    write('     \\ \\_/ / |  | | |  | |   \\ \\  /\\  / /  | | |  \\| |                   '),nl,                   
+    write('      \\   /| |  | | |  | |    \\ \\/  \\/ /   | | | .   |                    '),nl,
+    write('       | | | |__| | |__| |     \\  /\\  /   _| |_| |\\  |                    '),nl,
+    write('       |_|  \\____/ \\____/       \\/  \\/   |_____|_| \\_|                    '),nl,                
+    write('               // ! C O N G R A T U L A T I O N S ! \\\\                    '),nl,nl,
+    write('======================================================================'),nl,!;
 	HealthPlayer > 0, NewHealthMnstr > 0 -> fight,!;
 	HealthPlayer =< 0 ->
 					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
