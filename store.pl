@@ -17,7 +17,7 @@ store :-    positionPlayer(_,BarisPlayer,KolomPlayer), position(store,BarisPlaye
             Pickshop = 3 -> write('Till next time fighter!'),nl,!).
 
 store :-    positionPlayer(_,BarisPlayer,KolomPlayer), \+position(store,BarisPlayer,KolomPlayer),
-            write('Oops, kamu tidak berada di store. Masuk ke dalam tempat berlambang \'S\' untuk akses fitur store!'),!.
+            write('Oops, You are not in the store. Move in to the symbol \'S\' of map to access store!'),!.
 
 cekbalance :- gold(_,Balance), write(Balance).
 
