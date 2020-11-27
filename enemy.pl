@@ -9,7 +9,8 @@ creategoblin(X) :-
     asserta(specialattack(X,stealbiatch,8)),
     asserta(level(X,1)),
     asserta(killExp(X,10)),
-    asserta(killGold(X,50)).
+    asserta(killGold(X,50)),
+    asserta(turn(0)).
 
 :- dynamic(createslime/1).
 creategoblin(X) :-
@@ -21,7 +22,8 @@ creategoblin(X) :-
     asserta(specialattack(X,boink,5)),
     asserta(level(X,1)),
     asserta(killExp(X,7)),
-    asserta(killGold(X,45)).
+    asserta(killGold(X,45)),
+    asserta(turn(0)).
 
 :- dynamic(createogre/1).
 createogre(X) :-
@@ -31,13 +33,10 @@ createogre(X) :-
     asserta(defense(X,20)),
     asserta(speed(X,9)),
     asserta(specialattack(X,minibash,45)),
-    asserta(level(X,3)),
-    retract(xp(User,PrevX)),
-    retract(gold(User,PrevG)),
-    NewX is PrevX + 20,
-    NewG is PrevG + 150,
-    asserta(xp(User,NewX)),
-    asserta(gold(User,NewG)).
+    asserta(level(X,5)),
+    asserta(killExp(X,20)),
+    asserta(killGold(X,150)),
+    asserta(turn(0)).
 
 :- dynamic(createwolf/1).
 createwolf(X) :-
@@ -47,13 +46,10 @@ createwolf(X) :-
     asserta(defense(X,25)),
     asserta(speed(X,14)),
     asserta(specialattack(X,sharpbite,85)),
-    asserta(level(X,8)),
-    retract(xp(User,PrevX)),
-    retract(gold(User,PrevG)),
-    NewX is PrevX + 50,
-    NewG is PrevG + 250,
-    asserta(xp(User,NewX)),
-    asserta(gold(User,NewG)).
+    asserta(level(X,10)),
+    asserta(killExp(X,50)),
+    asserta(killGold(X,250)),
+    asserta(turn(0)).
 
 :- dynamic(creategolem/1).
 creategolem(X) :-
@@ -63,13 +59,10 @@ creategolem(X) :-
     asserta(defense(X,45)),
     asserta(speed(X,19)),
     asserta(specialattack(X,avalanche,135)),
-    asserta(level(X,14)),
-    retract(xp(User,PrevX)),
-    retract(gold(User,PrevG)),
-    NewX is PrevX + 150,
-    NewG is PrevG + 500,
-    asserta(xp(User,NewX)),
-    asserta(gold(User,NewG)).
+    asserta(level(X,10)),
+    asserta(killExp(X,150)),
+    asserta(killGold(X,500)),
+    asserta(turn(0)).
 
 :- dynamic(createviper/1).
 createviper(X) :-
@@ -79,13 +72,10 @@ createviper(X) :-
     asserta(defense(X,70)),
     asserta(speed(X,24)),
     asserta(specialattack(X,poisonbreak,195)),
-    asserta(level(X,17)),
-    retract(xp(User,PrevX)),
-    retract(gold(User,PrevG)),
-    NewX is PrevX + 450,
-    NewG is PrevG + 750,
-    asserta(xp(User,NewX)),
-    asserta(gold(User,NewG)).
+    asserta(level(X,15)),
+    asserta(killExp(X,450)),
+    asserta(killGold(X,750)),
+    asserta(turn(0)).
 
 :- dynamic(createsorrowling/1).
 createsorrowling(X) :-
@@ -96,12 +86,9 @@ createsorrowling(X) :-
     asserta(speed(X,34)),
     asserta(specialattack(X,phantomslash,300)),
     asserta(level(X,20)),
-    retract(xp(User,PrevX)),
-    retract(gold(User,PrevG)),
-    NewX is PrevX + 750,
-    NewG is PrevG + 1000,
-    asserta(xp(User,NewX)),
-    asserta(gold(User,NewG)).
+    asserta(killExp(X,750)),
+    asserta(killGold(X,1000)),
+    asserta(turn(0)).
 
 :- dynamic(createaghanim/1).
 createaghanim(X) :-
@@ -113,7 +100,8 @@ createaghanim(X) :-
     asserta(specialattack(X,prismaticbolt,600)),
     asserta(level(X,25)),
     asserta(killExp(X,1500)),
-    asserta(killGold(X,2000)).
+    asserta(killGold(X,2000)),
+    asserta(turn(0)).
 
 deletemonster(X) :-
     retract(class(X,_)),
@@ -124,7 +112,8 @@ deletemonster(X) :-
     retract(specialattack(X,_,_)),
     retract(level(X,_)),
     retract(killExp(X,_)),
-    retract(killGold(X,_)).
+    retract(killGold(X,_)),
+    retract(turn(_)).
 
 showStat(X) :-
     write('Nama         : '), write(X), nl,
@@ -132,8 +121,8 @@ showStat(X) :-
     write('Level        : '), level(X, Level), write(Level), nl,
     write('Health       : '), health(X, Health), write(Health), nl,
     write('Attack       : '), attack(X, Attack), write(Attack), nl,
-    write('Spc. Attack  : '), specialattack(X, namaSpcAtk, dmgSpcAtk), write(namaSpcAtk), write(" "), write(dmgSpcAtk), nl,
+    write('Spc. Attack  : '), specialattack(X, NamaSpcAtk, DmgSpcAtk), write(NamaSpcAtk), write(' '), write(DmgSpcAtk), nl,
     write('Defense      : '), defense(X, Defense), write(Defense), nl,
     write('Speed        : '), speed(X, Speed), write(Speed), nl,
-    write('Kill EXP     : '), killExp(X, EXP), write(EXP), nl,
-    write('Kill Gold    : '), killGold(X, Gold), write(Gold), nl,nl.
+    write('Kill EXP     : '), killExp(X, Exp), write(Exp), nl,
+    write('Kill Gold    : '), killGold(X, Gold), write(Gold), nl.

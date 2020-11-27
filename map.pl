@@ -88,22 +88,13 @@ map(Baris,Kolom) :- \+position(_,Baris,Kolom), \+positionPlayer(_,Baris,Kolom), 
 /* TODO sesuain showStats(X) dengan bagian Enemy  */
 
 /* Kondisi posisi player berada di zona monster */
-condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPlayer,KolomPlayer), Monster \= quest, Monster \= store, 
-                (Monster == ogre -> createogre(ogre), showStat(ogre), battle(ogre),!;
-                Monster == wolf -> createwolf(wolf), showStat(wolf), battle(wolf),!;
-                Monster == viper -> createviper(viper), showStat(viper), battle(viper),!;
-                Monster == golem -> creategolem(golem), showStat(golem), battle(golem),!;
-                Monster == miniboss -> createsorrowling(sorrowling), showStat(sorrowling), battle(sorrowling),!;
-                Monster == boss -> createaghanim(aghanim), showStat(aghanim), battle(aghanim),!).
-
-
-/* Kondisi posisi player tidak berada di zona monster */
-condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer,KolomPlayer), ketemuMusuh(Value), 
-        (Value = 0 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
-        Value = 1 -> creategoblin(goblin), showStat(goblin), nl, nl, battle(goblin), newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
-        Value = 2 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
-        Value = 3 -> createslime(slime), showStat(slime), nl, nl, battle(slime), newValue is 0, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue))).
-
+condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPlayer,KolomPlayer), 
+                (Monster = ogre -> createogre(ogre), showStat(ogre), battle(ogre),!;
+                Monster = wolf -> createwolf(wolf), showStat(wolf), battle(wolf),!;
+                Monster = viper -> createviper(viper), showStat(viper), battle(viper),!;
+                Monster = golem -> creategolem(golem), showStat(golem), battle(golem),!;
+                Monster = miniboss -> createsorrowling(sorrowling), showStat(sorrowling), battle(sorrowling),!;
+                Monster = boss -> createaghanim(aghanim), showStat(aghanim), battle(aghanim),!).
 
 /* Kondisi posisi player memasuki Quest atau Store */
 /* TODO Akses Quest */
@@ -111,25 +102,33 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPl
         (Tempat = store -> write('Fiuhh, you are inside the store. Monster will not chase you.');
         Tempat = quest -> write('Fiuhh, you are inside the quest. Monster will not chase you.')).
 
+/* Kondisi posisi player tidak berada di zona monster */
+condition :- ketemuMusuh(Value),  
+        (Value = 0 -> NewValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(NewValue)),!;
+        Value = 1 -> write('A Goblin found you!'),nl,nl, creategoblin(goblin), showStat(goblin), nl, nl, battle(goblin), NewValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(NewValue)),!;
+        Value = 2 -> NewValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(NewValue)),!;
+        Value = 3 -> write('A Slime found you!'),nl,nl, createslime(slime), showStat(slime), nl, nl, battle(slime), NewValue is 0, retract(ketemuMusuh(_)), asserta(ketemuMusuh(NewValue)),!).
+
+
 /* Jalan-jalan */
 w :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1,
         (NextBaris > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('You succeded to move up.'),nl, condition,!;
+        write('You succeded to move up.'),nl,nl, condition,!;
         write('Ouch!! You hit the wall'),nl,!).
 
 s :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1,
         (NextBaris < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('You succeded to move down.'),nl, condition,!;
+        write('You succeded to move down.'),nl,nl, condition,!;
         write('Ouch!! You hit the wall'),nl,!).
 
 a :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1,
         (NextKolom > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('You succeded to move left.'),nl, condition,!;
+        write('You succeded to move left.'),nl,nl, condition,!;
         write('Ouch!! You hit the wall'),nl,!).
 
 d :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1,
         (NextKolom < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('You succeded to move right.'),nl, condition,!;
+        write('You succeded to move right.'),nl,nl, condition,!;
         write('Ouch!! You hit the wall'),nl,!).
 
 /* Teleport */

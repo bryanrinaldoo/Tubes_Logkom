@@ -154,7 +154,7 @@ start    :- \+alreadystart(_), asserta(alreadystart(1)),
             write('             |`'),nl,
             write('             |'),nl).
 
-stats    :- class(Username,_),
+stats    :- positionPlayer(Username,_,_),
             checkstats(Username),!.
 
 bag :-  write(' _                 '),nl,

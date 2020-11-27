@@ -126,8 +126,7 @@ leveling(X) :-                                  /* X nama player */
                   
                   write('Your stats have upgrade and ur health full again, take a look to see what just changed'),nl,!.
 
-leveling(X) :-                                  /* X nama player */
-              exp(X,ExpPlayer), level(X, LvlPlayer),
+leveling(X) :-exp(X,ExpPlayer), level(X, LvlPlayer),
               Explevelup is LvlPlayer*10 + 70,
               Explevelup > ExpPlayer,!.
               
