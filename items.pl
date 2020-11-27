@@ -116,8 +116,14 @@ useWeapon(Item) :-  (cekBag(Item), weaponcheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
+                    write('__      _____  __ _ _ __   ___  _ __  '),nl,
+                    write('\\ \\ /\\ / / _ \\/ _  |  _ \\ / _ \\|  _ \\ '),nl,
+                    write(' \\ V  V /  __/ (_| | |_) | (_) | | | |'),nl,
+                    write('  \\_/\\_/ \\___|\\__,_| .__/ \\___/|_| |_|'),nl,
+                    write('                   | |                '),nl,
+                    write('                   |_|                '),nl,nl,
                     write(Item),
-                    write('Item equipped!'),nl,!;
+                    write(' equipped!'),nl,!;
 
                     \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
@@ -158,7 +164,12 @@ useArmor(Item) :-   (cekBag(Item), armorcheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
-                    write('Item equipped!'),nl,!;
+                    write('  __ _ _ __ _ __ ___   ___  _ __ '),nl,
+                    write(' / _  |  __|  _   _ \\ / _ \\|  __|'),nl,
+                    write('| (_| | |  | | | | | | (_) | |   '),nl,
+                    write(' \\__,_|_|  |_| |_| |_|\\___/|_|   '),nl,nl,
+                    write(Item),
+                    write(' equipped!'),nl,!;
 
                     \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
@@ -198,14 +209,21 @@ useAccessory(Item) :-    (cekBag(Item), accessorycheck(Item,Class),
                         New is Prev - 1,
                         asserta(bagspace(New)),
 
-                        write('Item equipped!'),nl,!;
+                        write('  __ _  ___ ___ ___  ___ ___  ___  _ __ _   _ '),nl,
+                        write(' / _  |/ __/ __/ _ \\/ __/ __|/ _ \\|  __| | | |'),nl,
+                        write('| (_| | (_| (_|  __/\\__ \\__ \\ (_) | |  | |_| |'),nl,
+                        write(' \\__,_|\\___\\___\\___||___/___/\\___/|_|   \\__, |'),nl,
+                        write('                                         __/ |'),nl,
+                        write('                                        |___/ '),nl,nl,
+                        write(Item),
+                        write(' equipped!'),nl,!;
 
                         \+(cekBag(Item)) -> write('You don\'t have this item'),nl;
 
                         write('This item not suit you!'),nl).
                         
 
-unuseAccessory(Item) :-  (equipArm(Item) -> downStatsac(Item),
+unuseAccessory(Item) :- (equipArm(Item) -> downStatsac(Item),
                         (stored(Item,X) -> 
                         retract(stored(Item,X)), 
                         Y is X + 1, 
@@ -235,6 +253,14 @@ usePotion(Item) :-  (cekBag(Item), potioncheck(Item,Class),
                     New is Prev - 1,
                     asserta(bagspace(New)),
 
+                    write('             _   _                 '),nl,
+                    write('            | | (_)                '),nl,
+                    write(' _ __   ___ | |_ _  ___  _ __  ___ '),nl,
+                    write('|  _ \\ / _ \\| __| |/ _ \\|  _ \\/ __|'),nl,
+                    write('| |_) | (_) | |_| | (_) | | | \\__ \\'),nl,
+                    write('| .__/ \\___/ \\__|_|\\___/|_| |_|___/'),nl,
+                    write('| |                                '),nl,
+                    write('|_|                                '),nl,nl,
                     write('Potion used!'),nl,!;
                     \+(cekBag(Item)) -> write('You don\'t have this item. Go to the store to buy it'),nl).
 
