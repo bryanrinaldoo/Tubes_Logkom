@@ -4,7 +4,7 @@ isClass(sorcerer).
 
 :- dynamic(createswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
-                        asserta(health(X,10,10)),        /* parameter kedua currHealth, ketiga MaxHealth */
+                        asserta(health(X,7,10)),        /* parameter kedua currHealth, ketiga MaxHealth */
                         asserta(attack(X,5)),
                         asserta(defense(X,7)),
                         asserta(speed(X,4)),
@@ -47,7 +47,7 @@ createsorcerer(X) :-    asserta(class(X,sorcerer)),
 checkstats(Username) :- write('Username     : '), write(Username), nl,
                         write('Class        : '), class(Username, Class), write(Class), nl,
                         write('Level        : '), level(Username, Level), write(Level), nl,
-                        write('Health       : '), health(Username, Health), write(Health), nl,
+                        write('Health       : '), health(Username, Health, MaxHealth), write(Health),write('/'),write(MaxHealth),nl,
                         write('Attack       : '), attack(Username, Attack), write(Attack), nl,
                         write('Spc. Attack  : '), specialattack(Username, Spcattack), write(Spcattack), nl,
                         write('Defense      : '), defense(Username, Defense), write(Defense), nl,

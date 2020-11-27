@@ -60,7 +60,7 @@ fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_),
 			 health(NamaMonster,HealthMnstr), newHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,newHealthMnstr)),
 			 write('U have done '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==3 ->  /* Masukin Use Potion */ ;
+	X==3 ->  usePotion(health_potion) ;
 	X==4 ->  run_qmark, run,!;
 	X==4 -> \+run_qmark, write('U cant run in front boss/miniboss :) gluck!'),nl,!),
 
@@ -93,7 +93,7 @@ fight :-  class(NamaMonster,boss), positionPlayer(NamaPlayer,_),
 			 health(NamaMonster,HealthMnstr), newHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,newHealthMnstr)),
 			 write('U have done '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==3 ->  /* Masukin Use Potion */ ;
+	X==3 ->  usePotion(health_potion) ;
 	X==4 -> write('U cant run in front boss/miniboss :) gluck!'),nl,!),
 
 	(health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr =< 0 -> 
@@ -126,7 +126,7 @@ fight :-  class(NamaMonster,miniboss), positionPlayer(NamaPlayer,_),
 			 health(NamaMonster,HealthMnstr), newHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,newHealthMnstr)),
 			 write('U have done '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
-	X==3 ->  /* Masukin Use Potion */ ;
+	X==3 ->  usePotion(health_potion) ;
 	X==4 ->  write('U cant run in front boss/miniboss :) gluck!'),nl,!),
 
 	(health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr =< 0 -> 

@@ -304,14 +304,14 @@ downStatsac(Item) :-    class(User,Class), accessorycheck(Item,Class), itemlevel
                         Level == legendary -> retract(specialattack(User,Prev)), New is Prev - 8, asserta(specialattack(User,New))).
 
 upPotion(Item) :-   class(User,Class), potioncheck(Item,Class),
-                    (Item == health_potion -> retract(health(User,Prev,X)), New is Prev + 5, 
-                    (new > X -> asserta(health(User,X,X));
-                    new < X -> asserta(health(User,new,X)));
+                    (Item == health_potion -> retract(health(User,Prev,Max)), New is Prev + 5,
+                    (New >= Max -> asserta(health(User,Max,Max));
+                    New < Max -> asserta(health(User,New,Max)));
 
-                    Item == big_health_potion -> retract(health(User,Prev)), New is Prev + 10, 
-                    (new > X -> asserta(health(User,X,X));
-                    new < X -> asserta(health(User,new,X)));
-                    
+                    Item == big_health_potion -> retract(health(User,Prev,Max)), New is Prev + 10, 
+                    (New >= Max -> asserta(health(User,Max,Max));
+                    New < Max -> asserta(health(User,New,Max)));
+
                     Item == attack_potion -> retract(attack(User,Prev)), New is Prev + 5, asserta(attack(User,New));
                     Item == defense_potion -> retract(defense(User,Prev)), New is Prev + 5, asserta(defense(User,New))).
 
