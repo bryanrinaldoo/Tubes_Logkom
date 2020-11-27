@@ -4,7 +4,7 @@ isClass(sorcerer).
 
 :- dynamic(createswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
-                        asserta(health(X,7,10)),        /* parameter kedua currHealth, ketiga MaxHealth */
+                        asserta(health(X,10,10)),        /* parameter kedua currHealth, ketiga MaxHealth */
                         asserta(attack(X,5)),
                         asserta(defense(X,7)),
                         asserta(speed(X,4)),

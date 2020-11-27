@@ -165,6 +165,14 @@ bag :-  write('Your bag contains : '), nl, nl,
         write(Count), nl)), nl.
 
 help :-     alreadystart(_) ->
+            write(' _          _       '),nl,
+            write('| |        | |      '),nl,
+            write('| |__   ___| |_ __  '),nl,
+            write('|  _ \\ / _ \\ |  _ \\ '),nl,
+            write('| | | |  __/ | |_) |'),nl,
+            write('|_| |_|\\___|_| .__/ '),nl,
+            write('             | |    '),nl,
+            write('             |_|    '),nl,nl,
             write('These are the command you can use in your game : '),nl,nl,
             write('- write stats. to see your stats'),nl,
             write('- write bag. to check your inventory'),nl,
