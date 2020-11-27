@@ -123,13 +123,6 @@ sellitem :- write('Your bag contains : '), nl, nl,
             deleteItem(Sell),
             write('100 gold has already been added!'),!);
 
-            hargaitem1000(Sell) -> 
-            (retract(gold(User,Balance)),
-            New is Balance + 1000,
-            asserta(gold(User,New)),
-            deleteItem(Sell),
-            write('1000 gold has already been added!'),!);
-
             hargaitem200(Sell) -> 
             (retract(gold(User,Balance)),
             New is Balance + 200,
@@ -143,8 +136,7 @@ gacha :-    random(1,100,R),nl,
             (R =< 50 -> randomwood;
             R =< 75 -> randomiron;
             R =< 90 -> randomdiamond;
-            R =< 95 -> randomlegendary;
-            R =< 100 -> randompotion
+            R =< 100 -> randomlegendary
             ).
 
 
@@ -210,20 +202,3 @@ randomlegendary :-  random(1,100,R),nl,
                     write('        |___/                             |___/ '),nl,nl,
                     write('You just got legendary level item!').
 
-randompotion :-     random(1,100,R),nl,
-                    (R =< 80 -> keepitem(revival_potion);
-                    R =< 100 -> keepitem(health_potion),
-                    keepitem(big_health_potion),
-                    keepitem(attack_potion),
-                    keepitem(defense_potion)
-                    ),nl,
-                    write('             _   _                 '),nl,
-                    write('            | | (_)                '),nl,
-                    write(' _ __   ___ | |_ _  ___  _ __  ___ '),nl,
-                    write('|  _ \\ / _ \\| __| |/ _ \\|  _ \\/ __|'),nl,
-                    write('| |_) | (_) | |_| | (_) | | | \\__ \\'),nl,
-                    write('| .__/ \\___/ \\__|_|\\___/|_| |_|___/'),nl,
-                    write('| |                                '),nl,
-                    write('|_|                                '),nl,nl,
-
-                    write('You just got potion item!').
