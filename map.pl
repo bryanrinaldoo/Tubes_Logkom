@@ -108,8 +108,8 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer
 /* Kondisi posisi player memasuki Quest atau Store */
 /* TODO Akses Quest */
 condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPlayer, KolomPlayer),
-        (Tempat = store -> write('Fiuhh, you are inside the store. Monster will not chase you.');
-        Tempat = quest -> write('Fiuhh, you are inside the quest. Monster will not chase you.')).
+             (Tempat = store -> write('Fiuhh, you are inside the store. Monster will not chase you.');
+             Tempat = quest -> write('Fiuhh, you are inside the quest. Monster will not chase you.')).
 
 /* Jalan-jalan */
 w :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1,
