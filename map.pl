@@ -81,14 +81,16 @@ map(Baris,Kolom) :- \+position(_,Baris,Kolom), \+positionPlayer(_,Baris,Kolom), 
 /* TODO sesuain showStats(X) dengan bagian Enemy  */
 
 /* Kondisi posisi player berada di zona monster */
+condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPlayer,KolomPlayer), Monster \= quest, Monster \= store, 
+                (Monster == ogre -> createogre(ogre), showStat(ogre), battle(ogre),!;
+                Monster == wolf -> createwolf(wolf), showStat(wolf), battle(wolf),!;
+                Monster == viper -> createviper(viper), showStat(viper), battle(viper),!;
+                Monster == golem -> creategolem(golem), showStat(golem), battle(golem),!;
+                Monster == miniboss -> createsorrowling(sorrowling), showStat(sorrowling), battle(sorrowling),!;
+                Monster == boss -> createaghanim(aghanim), showStat(aghanim), battle(aghanim),!).
 
-/*
-condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPlayer,KolomPlayer), Monster \= quest, Monster \= store, showStat(Monster), battle(Monster).
-*/
 
 /* Kondisi posisi player tidak berada di zona monster */
-
-
 condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer,KolomPlayer), ketemuMusuh(Value), 
         (Value = 0 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
         Value = 1 -> creategoblin(goblin), showStat(goblin), nl, nl, battle(goblin), newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));

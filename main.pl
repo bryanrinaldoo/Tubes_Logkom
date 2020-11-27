@@ -6,10 +6,9 @@
 :- include('savefile.pl').
 :- include('loadfile.pl').
 :- include('battlemech.pl').
-:-include ('enemy.pl').
+:- include('enemy.pl').
 
-menu :-     
-            write('                                WELCOME FIGHTER!'),nl,nl,
+menu :-     write('                                WELCOME FIGHTER!'),nl,nl,
             write('                    _             _,-----------._        '),nl,
             write('                              _,-_,-----------._`-._    '),nl,
             write('                             ,_,-  ___________  `-._.'),nl,

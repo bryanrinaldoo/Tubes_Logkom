@@ -60,35 +60,35 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
 
 
 leveling(X) :-                                  /* X nama player */
-              exp(X,ExpPlayer), level(X, LvlPlayer),
+              exp(X,ExpPlayer), level(X, LvlPlayer), class(X,ClassPlayer),
               Explevelup is LvlPlayer*10 + 70,
               Explevelup =< ExpPlayer,
               write('LEVEL UP !!!!!!!!!!!!'),nl,nl,
               ExpNew is ExpPlayer - Explevelup,
               LevelUp is LvlPlayer + 1,
 
-                 (classPlayer == swordsman ->
-                  healthGain is 10,
-                  attackGain is 10,
-                  defenseGain is 10,
-                  speedGain is 10,
-                  specialattackGain 5,!;
+                (ClassPlayer == swordsman ->
+                healthGain is 10,
+                attackGain is 10,
+                defenseGain is 10,
+                speedGain is 10,
+                specialattackGain is 5,!;
 
-                  classPlayer == archer ->
-                  healthGain is 8,
-                  attackGain is 13,
-                  defenseGain is 5,
-                  speedGain is 10,
-                  specialattackGain is 10,!;
+                ClassPlayer == archer ->
+                healthGain is 8,
+                attackGain is 13,
+                defenseGain is 5,
+                speedGain is 10,
+                specialattackGain is 10,!;
 
-                  classPlayer == sorcerer ->
-                  healthGain is 6,
-                  attackGain is 8,
-                  defenseGain is 5,
-                  speedGain is 8,
-                  specialattackGain is 13,!),
+                ClassPlayer == sorcerer ->
+                healthGain is 6,
+                attackGain is 8,
+                defenseGain is 5,
+                speedGain is 8,
+                specialattackGain is 13,!),
                   
-                  health(X,CurrHealth,MaxHealth), attack(X,Attack), defense(X,Defense),
+                  health(X,_,MaxHealth), attack(X,Attack), defense(X,Defense),
                   speed(X,Speed), specialattack(X,SpcAttack),
 
                   NewHealth is healthGain + MaxHealth,
@@ -104,7 +104,7 @@ leveling(X) :-                                  /* X nama player */
                   asserta(level(X,LevelUp)),
 
                   retract(health(X,_,_)),      
-                  asserta(health(X,MaxHealth,MaxHealth)),    /* karena naik level darahnya penuh lagi */
+                  asserta(health(X,NewHealth,NewHealth)),    /* karena naik level darahnya penuh lagi */
 
                   retract(attack(X,_)),
                   asserta(attack(X,NewAttack)),
