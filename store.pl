@@ -11,17 +11,18 @@ store :-    positionPlayer(_,BarisPlayer,KolomPlayer), position(store,BarisPlaye
             write('| |   3. Just visiting!    | |'),nl,
             write('| |________________________| |'),nl,
             write('|____________________________|'),nl,nl,
-            write('what do you want to do? '),read_integer(Pickshop),nl,
+
+            write('What do you want to do? '),read_integer(Pickshop),nl,
             (Pickshop = 1 -> buyitem,!;
             Pickshop = 2 -> sellitem,!;
             Pickshop = 3 -> write('Till next time fighter!'),nl,!).
 
 store :-    positionPlayer(_,BarisPlayer,KolomPlayer), \+position(store,BarisPlayer,KolomPlayer),
-            write('Oops, You are not in the store. Move in to the symbol \'S\' of map to access store!'),!.
+            write('Oops, You are not in the store. Move to the symbol \'S\' on the map to access store!'),!.
 
 cekbalance :- gold(_,Balance), write(Balance).
 
-buyitem :-      write('|----- Here what i sell today -----'),nl,
+buyitem :-      write('|----- Here what I sell today -----'),nl,
                 write('|No.| Item name          | Price |'),nl,
                 write('|1. | Health Potion      |   25  |'),nl,
                 write('|2. | Big Health Potion  |   50  |'),nl,
@@ -32,7 +33,7 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 write('Your Balance right now :'),
                 write(Balance),nl,nl,
 
-                write('Tell me what u want fighter: '), read_integer(Pickbuy),nl,
+                write('Tell me what you want fighter: '), read_integer(Pickbuy),nl,
                 
                 (Pickbuy = 1 ->
                 (Balance >= 25 -> 
@@ -40,8 +41,8 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 New is Balance - 25,
                 asserta(gold(User,New)),
                 keepitem(health_potion),
-                write('Thankyou For Shopping!'),nl,!;
-                write('Your Gold is not enough! Sell some item!'),!);
+                write('Thank You For Shopping!'),nl,!;
+                write('Your Gold is not enough! Sell some items!'),!);
                 
                 Pickbuy = 2 ->
                 (Balance >= 50 -> 
@@ -49,8 +50,8 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 New is Balance - 50,
                 asserta(gold(User,New)),
                 keepitem(big_health_potion),
-                write('Thankyou For Shopping!'),nl,!;
-                write('Your Gold is not enough! Sell some item!'),!);
+                write('Thank You For Shopping!'),nl,!;
+                write('Your Gold is not enough! Sell some items!'),!);
                 
                 Pickbuy = 3 ->
                 (Balance >= 25 -> 
@@ -58,8 +59,8 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 New is Balance - 25,
                 asserta(gold(User,New)),
                 keepitem(attack_potion),
-                write('Thankyou For Shopping!'),nl,!;
-                write('Your Gold is not enough! Sell some item!'),!);
+                write('Thank You For Shopping!'),nl,!;
+                write('Your Gold is not enough! Sell some items!'),!);
 
                 Pickbuy = 4 ->
                 (Balance >= 25 -> 
@@ -67,8 +68,8 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 New is Balance - 25,
                 asserta(gold(User,New)),
                 keepitem(defense_potion),
-                write('Thankyou For Shopping!'),nl,!;
-                write('Your Gold is not enough! Sell some item!'),!);
+                write('Thank You For Shopping!'),nl,!;
+                write('Your Gold is not enough! Sell some items!'),!);
 
                 Pickbuy = 5 ->
                 (Balance>=100 -> 
@@ -76,8 +77,8 @@ buyitem :-      write('|----- Here what i sell today -----'),nl,
                 New is Balance - 100,
                 asserta(gold(User,New)),
                 gacha,nl,nl,
-                write('Thankyou For Shopping!'),nl,!;
-                write('Your Gold is not enough! Sell some item!'),!)).
+                write('Thank You For Shopping!'),nl,!;
+                write('Your Gold is not enough! Sell some items!'),!)).
 
 sellitem :- write('Your bag contains : '), nl, nl,
             forall((cekBag(Item)), 
@@ -201,4 +202,3 @@ randomlegendary :-  random(1,100,R),nl,
                     write('         __/ |                             __/ |'),nl,
                     write('        |___/                             |___/ '),nl,nl,
                     write('You just got legendary level item!').
-
