@@ -5,6 +5,8 @@
 :- include('store.pl').
 :- include('savefile.pl').
 :- include('loadfile.pl').
+:- include('battlemech.pl').
+:-include ('enemy.pl').
 
 menu :- write('WELCOME FIGHTER!'),nl,nl,
             write('1. start'),nl,
@@ -50,6 +52,9 @@ help :-     alreadystart(_) ->
             write('- write bag. to check your inventory'),nl,
             write('- write helpequip. to check how to use item'),nl,
             write('- write map. to check where you are'),nl,
+            write('- write w./a./s./d. to move'),nl,
+            write('- write teleport(<name_of_place>). to teleport you near zone, with a choices of zone is store, quest, ogre, viper, wolf, golem, miniboss, and boss'),nl,
+            write('- write store. di zona store untuk mengakses fitur store'),nl,
             write('----nanti ditambahin lagi help nya----'),nl,!;
             write('Start the game first fighter!').
 

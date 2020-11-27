@@ -4,7 +4,7 @@ isClass(sorcerer).
 
 :- dynamic(createswordsman/1).
 createswordsman(X) :-   asserta(class(X,swordsman)),
-                        asserta(health(X,10)),
+                        asserta(health(X,10,10)),        /* parameter kedua currHealth, ketiga MaxHealth */
                         asserta(attack(X,5)),
                         asserta(defense(X,7)),
                         asserta(speed(X,4)),
@@ -18,7 +18,7 @@ createswordsman(X) :-   asserta(class(X,swordsman)),
                     
 :- dynamic(createarcher/1).
 createarcher(X) :-      asserta(class(X,archer)),
-                        asserta(health(X,10)),
+                        asserta(health(X,10,10)),
                         asserta(attack(X,5)),
                         asserta(defense(X,6)),
                         asserta(speed(X,5)),
@@ -32,7 +32,7 @@ createarcher(X) :-      asserta(class(X,archer)),
                     
 :- dynamic(createsorcerer/1).
 createsorcerer(X) :-    asserta(class(X,sorcerer)),
-                        asserta(health(X,9)),
+                        asserta(health(X,9,9)),
                         asserta(attack(X,5)),
                         asserta(defense(X,5)),
                         asserta(speed(X,4)),
@@ -58,57 +58,71 @@ checkstats(Username) :- write('Username     : '), write(Username), nl,
 
 %%============================ Leveling ==================== (R. B. Wishnumurti / 13519203)
 
-leveling(X) :- 
-              checkstats(Username)
-              xplevelup is Level*10 + 70,
-              xplevelup =< Exp,
-              expNew is Exp - xplevelup,
-              levelUp is Level + 1,
 
-              ( 
-                  Class = swordsman,
-                  healthGain is Level*3 + 10,
-                  attackGain is Level*3 + 10,
-                  defenseGain is Level*4 + 10;
+leveling(X) :-                                  /* X nama player */
+              exp(X,ExpPlayer), level(X, LvlPlayer),
+              Explevelup is LvlPlayer*10 + 70,
+              Explevelup =< ExpPlayer,
+              write('LEVEL UP !!!!!!!!!!!!'),nl,nl,
+              ExpNew is ExpPlayer - Explevelup,
+              LevelUp is LvlPlayer + 1,
 
-                  class = archer,
-                  healthGain is Level*3 + 9,
-                  attackGain is Level*3 + 12,
-                  defenseGain is Level*4 + 8;
+                 (classPlayer == swordsman ->
+                  healthGain is 10,
+                  attackGain is 10,
+                  defenseGain is 10,
+                  speedGain is 10,
+                  specialattackGain 5,!;
 
-                  class = sorcerer,
-                  healthGain is Level*3 + 13,
-                  attackGain is Level*3 + 8,
-                  defenseGain is Level*4 + 12;
+                  classPlayer == archer ->
+                  healthGain is 8,
+                  attackGain is 13,
+                  defenseGain is 5,
+                  speedGain is 10,
+                  specialattackGain is 10,!;
 
-                  NewHealth is healthGain + Health,
+                  classPlayer == sorcerer ->
+                  healthGain is 6,
+                  attackGain is 8,
+                  defenseGain is 5,
+                  speedGain is 8,
+                  specialattackGain is 13,!),
+                  
+                  health(X,CurrHealth,MaxHealth), attack(X,Attack), defense(X,Defense),
+                  speed(X,Speed), specialattack(X,SpcAttack),
+
+                  NewHealth is healthGain + MaxHealth,
                   NewAttack is attackGain + Attack,
                   NewDefense is defenseGain + Defense,
+                  NewSpeed is speedGain + Speed,
+                  NewSpcAttack is specialattackGain + SpcAttack,
 
-                  retract(exp(Username,Exp)),
-                  asserta(exp(Username,expNew)),
+                  retract(exp(X,_)),
+                  asserta(exp(X,ExpNew)),
                   
-                  retract(level(Username,Level)),
-                  asserta(level(Username,levelUp)),
+                  retract(level(X,_)),
+                  asserta(level(X,LevelUp)),
 
-                  retract(health(Username,Health)),
-                  asserta(health(Username,healthGain)),
+                  retract(health(X,_,_)),      
+                  asserta(health(X,MaxHealth,MaxHealth)),    /* karena naik level darahnya penuh lagi */
 
-                  retract(attack(Username,Attack)),
-                  asserta(attack(Username,NewAttack)),
+                  retract(attack(X,_)),
+                  asserta(attack(X,NewAttack)),
 
-                  retract(defense(Username,Defense)),
-                  asserta(defense(Username,NewDefense)),
+                  retract(defense(X,_)),
+                  asserta(defense(X,NewDefense)),
 
-                
+                  retract(speed(X,_)),
+                  asserta(speed(X,NewSpeed)),
 
+                  retract(specialattack(X,_)),
+                  asserta(specialattack(X,NewSpcAttack)),
+                  
+                  write('Your stats have upgrade and ur health full again, take a look to see what just changed'),nl,!.
 
-
-
-
-
-
-
-              )
-
+leveling(X) :-                                  /* X nama player */
+              exp(X,ExpPlayer), level(X, LvlPlayer),
+              Explevelup is LvlPlayer*10 + 70,
+              Explevelup > ExpPlayer,!.
+              
 

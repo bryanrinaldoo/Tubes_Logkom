@@ -1,4 +1,30 @@
-ogre(X) :-
+/* Ketika bertemu musuh maka predicate ini akan dipanggil */
+:- dynamic(creategoblin/1).
+creategoblin(X) :-
+    asserta(class(X,monster)),
+    asserta(health(X,15)),
+    asserta(attack(X,7)),
+    asserta(defense(X,1)),
+    asserta(speed(X,1)),
+    asserta(specialattack(X,stealbiatch,8)),
+    asserta(level(X,1)),
+    asserta(killExp(X,10)),
+    asserta(killGold(X,50)).
+
+:- dynamic(createslime/1).
+creategoblin(X) :-
+    asserta(class(X,monster)),
+    asserta(health(X,10)),
+    asserta(attack(X,5)),
+    asserta(defense(X,1)),
+    asserta(speed(X,1)),
+    asserta(specialattack(X,boink,5)),
+    asserta(level(X,1)),
+    asserta(killExp(X,7)),
+    asserta(killGold(X,45)).
+
+:- dynamic(createogre/1).
+createogre(X) :-
     asserta(class(X,monster)),
     asserta(health(X,100)),
     asserta(attack(X,20)),
@@ -9,7 +35,8 @@ ogre(X) :-
     asserta(killExp(X,20)),
     asserta(killGold(X,150)).
 
-wolf(X) :-
+:- dynamic(createwolf/1).
+createwolf(X) :-
     asserta(class(X,monster)),
     asserta(health(X,350)),
     asserta(attack(X,45)),
@@ -20,7 +47,8 @@ wolf(X) :-
     asserta(killExp(X,50)),
     asserta(killGold(X,250)).
 
-golem(X) :-
+:- dynamic(creategolem/1).
+creategolem(X) :-
     asserta(class(X,monster)),
     asserta(health(X,700)),
     asserta(attack(X,90)),
@@ -31,7 +59,8 @@ golem(X) :-
     asserta(killExp(X,150)),
     asserta(killGold(X,500)).
 
-viper(X) :-
+:- dynamic(createviper/1).
+createviper(X) :-
     asserta(class(X,monster)),
     asserta(health(X,1050)),
     asserta(attack(X,105)),
@@ -42,7 +71,8 @@ viper(X) :-
     asserta(killExp(X,450)),
     asserta(killGold(X,750)).
 
-sorrowling(X) :-
+:- dynamic(createsorrowling/1).
+createsorrowling(X) :-
     asserta(class(X,miniboss)),
     asserta(health(X,1650)),
     asserta(attack(X,200)),
@@ -53,7 +83,8 @@ sorrowling(X) :-
     asserta(killExp(X,750)),
     asserta(killGold(X,1000)).
 
-aghanim(X) :-
+:- dynamic(createaghanim/1).
+createaghanim(X) :-
     asserta(class(X,boss)),
     asserta(health(X,3000)),
     asserta(attack(X,400)),
@@ -63,3 +94,26 @@ aghanim(X) :-
     asserta(level(X,25)),
     asserta(killExp(X,1500)),
     asserta(killGold(X,2000)).
+
+deletemonster(X) :-
+    retract(class(X,_)),
+    retract(health(X,_)),
+    retract(attack(X,_)),
+    retract(defense(X,_)),
+    retract(speed(X,_)),
+    retract(specialattack(X,_,_)),
+    retract(level(X,_)),
+    retract(killExp(X,_)),
+    retract(killGold(X,_)).
+
+showStat(X) :-
+    write('Nama         : '), write(X), nl,
+    write('Class        : '), class(X, Class), write(Class), nl,
+    write('Level        : '), level(X, Level), write(Level), nl,
+    write('Health       : '), health(X, Health), write(Health), nl,
+    write('Attack       : '), attack(X, Attack), write(Attack), nl,
+    write('Spc. Attack  : '), specialattack(X, namaSpcAtk, dmgSpcAtk), write(namaSpcAtk), write(" "), write(dmgSpcAtk), nl,
+    write('Defense      : '), defense(X, Defense), write(Defense), nl,
+    write('Speed        : '), speed(X, Speed), write(Speed), nl,
+    write('Kill EXP     : '), killExp(X, EXP), write(EXP), nl,
+    write('Kill Gold    : '), killGold(X, Gold), write(Gold), nl,nl.

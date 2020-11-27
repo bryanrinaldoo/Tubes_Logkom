@@ -38,4 +38,57 @@ ss(B,A,Z):-
 potion(A,C):-
 	darah(A,M),
 	C is M+3.
+
+/* tito */
+battle(NamaMonster) :- NamaMonster \= aghanim, NamaMonster \= sorrowling, 
+					   write('Fight? or Run like a baby fighter?'),!.
+
+battle(aghanim) :- fight.
+
+battle(sorrowling) :- fight.
+
+/* TODO fight lawan miniboss ama boss */
+
+fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_),
+	repeat,
+	write('1. Basic Attack'),nl,
+	write('2. Special Attack'),nl,
+	write('3. Use Potion'),nl,
+	write('4. Run'),nl,
+	write('Silahkan pilih aksi: '),read_integer(X),
+	(X==1 -> attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
+			 health(NamaMonster,HealthMnstr), newHealthMnstr is HealthMnstr-Dmg, 
+			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,newHealthMnstr)),
+			 write('U have done '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
+	X==2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
+			Dmg is AtkPlayer-DefMonster,
+			 health(NamaMonster,HealthMnstr), newHealthMnstr is HealthMnstr-Dmg, 
+			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,newHealthMnstr)),
+			 write('U have done '), write(Dmg), write(' damage to enemy, good job!'),nl,!;
+	X==3 ->  /* Masukin Use Potion */ ;
+	X==4 ->  run,!),
+
+	(health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr =< 0 -> 
+					write('Wow, you have killed '), write(NamaMonster),
+					write('You got '), killGold(NamaMonster,GValue), write(GValue), write(' gold'),nl,
+					write('You got '), killExp(NamaMonster,EValue), write(EValue), write(' exp'),nl,
+					gold(NamaPlayer,CurrGold), NewGold is CurrGold + GValue, retract(gold(_,_)), asserta(gold(NamaPlayer,NewGold)), 
+					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), leveling(NamaPlayer),
+					leveling(NamaPlayer),!;
+	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer>0, HealthMnstr > 0 -> 
+					fail;
+	health(NamaMonster,HealthMnstr), health(NamaPlayer,HealthPlayer,_), HealthPlayer=<0 ->
+					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
+
+
 	
+
+fight :- \+class(_,monster), \+class(_,miniboss), \+class(_,boss),
+		 write('Easy fighter, there is no monster yet'),nl,!.
+
+run :- class(NamaMonster,monster), level(NamaMonster,LVLMonster),
+	   positionPlayer(NamaPlayer,_,_), level(NamaPlayer,LVLPlayer),
+	   (LVLPlayer=<LVLMonster -> write('Oops, u cant run fighter!'),nl,!;
+	   LVLPlayer>LVLMonster -> write('U run safely!'),nl,deletemonster(NamaMonster),!),!.
+
+run :- \+class(_,monster), write('Even u not face monster yet, why so scared?'),nl,!.

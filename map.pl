@@ -88,16 +88,15 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Monster,BarisPl
 
 /* Kondisi posisi player tidak berada di zona monster */
 
-/*
+
 condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer,KolomPlayer), ketemuMusuh(Value), 
         (Value = 0 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
-        Value = 1 -> showStat(goblin), battle(goblin), newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
+        Value = 1 -> creategoblin(goblin), showStat(goblin), nl, nl, battle(goblin), newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
         Value = 2 -> newValue is Value+1, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue));
-        Value = 3 -> showStat(slime), battle(slime), newValue is 0, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue))).
-*/
+        Value = 3 -> createslime(slime), showStat(slime), nl, nl, battle(slime), newValue is 0, retract(ketemuMusuh(_)), asserta(ketemuMusuh(newValue))).
+
 
 /* Kondisi posisi player memasuki Quest atau Store */
-/* TODO Akses Store */
 /* TODO Akses Quest */
 condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPlayer, KolomPlayer),
         (Tempat = store -> write('Fiuhh, kamu berada di dalam Store. Monster tidak akan mengejarmu.');
@@ -106,22 +105,22 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPl
 /* Jalan-jalan */
 w :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1,
         (NextBaris > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('Kamu berhasil bergerak ke atas.'),nl, condition;
+        write('Kamu berhasil bergerak ke atas.'),nl, condition,!;
         write('Mentok gan:('),nl,!).
 
 s :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1,
         (NextBaris < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('Kamu berhasil bergerak ke bawah.'),nl, condition;
+        write('Kamu berhasil bergerak ke bawah.'),nl, condition,!;
         write('Mentok gan:('),nl,!).
 
 a :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1,
         (NextKolom > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('Kamu berhasil bergerak ke kiri.'),nl, condition;
+        write('Kamu berhasil bergerak ke kiri.'),nl, condition,!;
         write('Mentok gan:('),nl,!).
 
 d :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1,
         (NextKolom < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('Kamu berhasil bergerak ke kanan.'),nl, condition;
+        write('Kamu berhasil bergerak ke kanan.'),nl, condition,!;
         write('Mentok gan:('),nl,!).
 
 /* Teleport */
