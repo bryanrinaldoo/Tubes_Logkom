@@ -1,35 +1,32 @@
 
-% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/main.pl
-
-alreadystart(1).
-
 % file: user_input
 
 attack(grevi, 5).
 
 % file: user_input
 
-class(grevi, archer).
+class(grevi, swordsman).
 
 % file: user_input
 
-defense(grevi, 6).
+defense(grevi, 7).
 
 % file: user_input
 
-exp(grevi, 0).
+exp(grevi, 10).
 
 % file: user_input
 
-gold(grevi, 100).
+gold(grevi, 150).
 
 % file: user_input
 
-health(grevi, 10).
+health(grevi, 9, 10).
+
 
 % file: user_input
 
-ketemuMusuh(0).
+ketemuMusuh(2).
 
 % file: user_input
 
@@ -37,12 +34,34 @@ level(grevi, 1).
 
 % file: user_input
 
-positionPlayer(grevi, 1, 1).
+positionPlayer(grevi, 3, 1).
 
 % file: user_input
 
-specialattack(grevi, 8).
+specialattack(grevi, 7).
+
 
 % file: user_input
 
-speed(grevi, 5).
+speed(grevi, 4).
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/inventory.pl
+
+bagspace(6).
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/inventory.pl
+
+stored(wooden_sword, 1).
+stored(health_potion, 5).
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/items.pl
+
+equipWpn(none).
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/items.pl
+
+equipArm(none).
+
+% file: C:/Users/Tito Prakasa/Documents/Programming/Praktikum Logkom/Tubes_Logkom/items.pl
+
+equipAcc(none).

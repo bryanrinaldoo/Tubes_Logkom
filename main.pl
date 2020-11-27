@@ -7,6 +7,7 @@
 :- include('loadfile.pl').
 :- include('battlemech.pl').
 :- include('enemy.pl').
+:- include('goalstate.pl').
 
 menu :-     write('                                WELCOME FIGHTER!'),nl,nl,
             write('                    _             _,-----------._        '),nl,
@@ -86,7 +87,7 @@ menu :-     write('                                WELCOME FIGHTER!'),nl,nl,
             write('    |          *****             |.'),nl,
             write('    |   _________________________|___'),nl,
             write('    |  /                            /.'),nl,
-            write('    |_/____________________________/.'),nl,nl,/*disini tambahin load*/ !; 
+            write('    |_/____________________________/.'),nl,nl,load,!; 
             Pick = 2 -> 
             write('   ______________________________'),nl,
             write(' /  |                            |.'),nl,
@@ -185,6 +186,7 @@ help :-     alreadystart(_) ->
             write('- write stats. to see your stats'),nl,
             write('- write bag. to check your inventory'),nl,
             write('- write helpequip. to check how to use item'),nl,
+            write('- write helpebattle. to check how to battling in here'),nl,
             write('- write map. to check where you are'),nl,
             write('- write w./a./s./d. to move'),nl,
             write('- write teleport(<name_of_place>). to teleport you near zone, with a choices of zone is store, quest, ogre, viper, wolf, golem, miniboss, and boss'),nl,
@@ -213,3 +215,11 @@ helpequip :-    write(' _          _       '),nl,
                 write('- write useArmor(<item_name>). to equip your weapon'),nl,
                 write('- write useAccessory(<item_name>). to equip your weapon'),nl,
                 write('- write usePotion(<item_name>). to use your potion'),nl.
+
+helpbattle :-   write('First, you need to walk around to find casual monster. Or you can'),nl
+                write('just walk to Monster Zone with symbol of \'O\' \'W\' \'V\' \'G\'. Last'),nl
+                write('you can fight miniboss or boss (if you brave enough) on the symbol of'),nl
+                write('\'M\' or \'B\''),nl,nl
+                write('---This is the command you can  use if you face monster : '),nl,nl,
+                write('- write fight. to battling the monster'),nl,
+                write('- write run. to try run from the monster (u cant run from boss and miniboss)'),nl,

@@ -112,7 +112,8 @@ fight :-  class(NamaMonster,boss), positionPlayer(NamaPlayer,_,_),
 					write('You got '), killExp(NamaMonster,EValue), write(EValue), write(' exp'),nl,
 					gold(NamaPlayer,CurrGold), NewGold is CurrGold + GValue, retract(gold(_,_)), asserta(gold(NamaPlayer,NewGold)), 
 					exp(NamaPlayer,CurrExp), NewExp is CurrExp + EValue, retract(exp(_,_)), asserta(exp(NamaPlayer,NewExp)), deletemonster(NamaMonster), 
-					leveling(NamaPlayer),!;
+					leveling(NamaPlayer),
+					goalState,!;
 	HealthPlayer > 0, NewHealthMnstr > 0 -> fight,!;
 	HealthPlayer =< 0 ->
 					write('Oh no, U got killed by '), write(NamaMonster), write(', U Lost!'), halt,!).
