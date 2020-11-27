@@ -194,10 +194,10 @@ unuseArmor(Item) :-     (equipArm(Item) -> downStatsar(Item),
                         write('Item unequipped!'), nl,!;
                         write('???? You don\'t even wear it ???'), nl). 
 
-useAccessory(Item) :-    (cekBag(Item), accessorycheck(Item,Class),
+useAccessory(Item) :-   (cekBag(Item), accessorycheck(Item,Class),
                         class(_,Class) -> (equipAcc(Used), Used\== none -> unuseAccessory(_);
-                        retract(equipArm(none))),
-                        asserta(equipArm(Item)),
+                        retract(equipAcc(none))),
+                        asserta(equipAcc(Item)),
                         
                         retract(stored(Item,X)),
                         Y is X-1, 

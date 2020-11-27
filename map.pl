@@ -47,10 +47,17 @@ position(boss,18,18).
 
 /* Jika game belum dimulai map tidak ditampilkan */
 map :- \+alreadystart(_),
-        write('Kamu belum memulai game ini fighter!'),nl,!.
+        write('You have not started the game fighter!'),nl,!.
 
 /* Game sudah dimulai maka map bisa ditampilkan */
-map :- alreadystart(_), printLine(0,0),!.
+map :-  alreadystart(_), 
+        write(' _ __ ___   __ _ _ __  '),nl,
+        write('|  _   _ \\ / _  |  _ \\ '),nl,
+        write('| | | | | | (_| | |_) |'),nl,
+        write('|_| |_| |_|\\__,_| .__/ '),nl,
+        write('                | |    '),nl,
+        write('                |_|    '),nl,nl,
+        printLine(0,0),!.
 
 /* Basis dalam menampilkan map */
 printLine(19,19) :- map(19,19),nl.
@@ -101,29 +108,29 @@ condition :- positionPlayer(_,BarisPlayer,KolomPlayer), \+position(_,BarisPlayer
 /* Kondisi posisi player memasuki Quest atau Store */
 /* TODO Akses Quest */
 condition :- positionPlayer(_,BarisPlayer,KolomPlayer), position(Tempat, BarisPlayer, KolomPlayer),
-        (Tempat = store -> write('Fiuhh, kamu berada di dalam Store. Monster tidak akan mengejarmu.');
-        Tempat = quest -> write('Fiuhh, kamu berada di dalam Quest. Monster tidak akan mengejarmu.')).
+        (Tempat = store -> write('Fiuhh, you are inside the store. Monster will not chase you.');
+        Tempat = quest -> write('Fiuhh, you are inside the quest. Monster will not chase you.')).
 
 /* Jalan-jalan */
 w :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris-1,
         (NextBaris > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('Kamu berhasil bergerak ke atas.'),nl, condition,!;
-        write('Mentok gan:('),nl,!).
+        write('You succeded to move up.'),nl, condition,!;
+        write('Ouch!! You hit the wall'),nl,!).
 
 s :-    positionPlayer(Nama,Baris,Kolom), NextBaris is Baris+1,
         (NextBaris < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,NextBaris,Kolom)), 
-        write('Kamu berhasil bergerak ke bawah.'),nl, condition,!;
-        write('Mentok gan:('),nl,!).
+        write('You succeded to move down.'),nl, condition,!;
+        write('Ouch!! You hit the wall'),nl,!).
 
 a :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom-1,
         (NextKolom > 0 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('Kamu berhasil bergerak ke kiri.'),nl, condition,!;
-        write('Mentok gan:('),nl,!).
+        write('You succeded to move left.'),nl, condition,!;
+        write('Ouch!! You hit the wall'),nl,!).
 
 d :-    positionPlayer(Nama,Baris,Kolom), NextKolom is Kolom+1,
         (NextKolom < 19 -> retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,NextKolom)), 
-        write('Kamu berhasil bergerak ke kanan.'),nl, condition,!;
-        write('Mentok gan:('),nl,!).
+        write('You succeded to move right.'),nl, condition,!;
+        write('Ouch!! You hit the wall'),nl,!).
 
 /* Teleport */
 teleport(Lokasi) :- position(Lokasi,_,_),
@@ -135,10 +142,18 @@ teleport(Lokasi) :- position(Lokasi,_,_),
                     Lokasi = viper -> position(viper,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
                     Lokasi = miniboss -> position(miniboss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!;
                     Lokasi = boss -> position(boss,Baris,Kolom), TargetKolom is Kolom-1, positionPlayer(Nama,_,_), retract(positionPlayer(_,_,_)), asserta(positionPlayer(Nama,Baris,TargetKolom)),!),
-                    write('Yeay, kamu berhasil teleport!'),nl, 
+                    write(' _       _                       _           _ '),nl,
+                    write('| |     | |                     | |         | |'),nl,
+                    write('| |_ ___| | ___ _ __   ___  _ __| |_ ___  __| |'),nl,
+                    write('| __/ _ \\ |/ _ \\  _ \\ / _ \\|  __| __/ _ \\/ _  |'),nl,
+                    write('| ||  __/ |  __/ |_) | (_) | |  | ||  __/ (_| |'),nl,
+                    write(' \\__\\___|_|\\___| .__/ \\___/|_|   \\__\\___|\\__,_|'),nl,
+                    write('               | |                             '),nl,
+                    write('               |_|                             '),nl,nl,
+                    write('Yay! you have been teleported!'),nl, 
                     condition.    
 
 teleport(Lokasi) :- \+position(Lokasi,_,_), 
-                    write('Oops, lokasi yang kamu masukkan tidak ada.').
+                    write('Oops, There\'s no such place!').
 
                     
