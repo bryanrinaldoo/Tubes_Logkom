@@ -50,8 +50,11 @@ counterattack(NamaMonster) :- positionPlayer(NamaPlayer,_,_),
 		X = 1 -> Dmg is AtkMonster-DefPlayer, NewX is X+1, retract(turn(_)), asserta(turn(NewX)),!;
 		X = 2 -> Dmg is AtkMonster-DefPlayer, NewX is X+1, retract(turn(_)), asserta(turn(NewX)),!;
 		X = 3 -> Dmg is SpcAtkMonster-DefPlayer, NewX is 0, retract(turn(_)), asserta(turn(NewX)),!),
-							  NewHealth is CurrHealthPlayer-Dmg, retract(health(NamaPlayer,_,_)), asserta(health(NamaPlayer,NewHealth,MaxHealthPlayer)),
-							  write('Ouch! You got '), write(Dmg), write(' damage from '), write(NamaMonster),nl,nl.
+
+		(Dmg < 0 -> NewHealth is CurrHealthPlayer, NewDmg is 0,!; NewHealth is CurrHealthPlayer-Dmg, NewDmg is Dmg,!),
+							  retract(health(NamaPlayer,_,_)), asserta(health(NamaPlayer,NewHealth,MaxHealthPlayer)),
+							  write('Ouch! You got '), write(NewDmg), write(' damage from '), write(NamaMonster),nl,
+							  write('Your health now is '), write(NewHealth),nl,nl.
 
 /* fight lawan monster biasa */
 fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_,_),
@@ -64,12 +67,14 @@ fight :-  class(NamaMonster,monster), positionPlayer(NamaPlayer,_,_),
 	(X=1 ->  attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
 			Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=3 ->  usePotion(health_potion),!;
 	X=4 ->  run_qmark, run,!),
 
@@ -96,12 +101,14 @@ fight :-  class(NamaMonster,boss), positionPlayer(NamaPlayer,_,_),
 	(X=1 ->  attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
 			Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=3 ->  usePotion(health_potion),!;
 	X==4 ->  write('U cant run in front of boss/miniboss :) gluck!'),nl,!),
 
@@ -130,12 +137,14 @@ fight :-  class(NamaMonster,miniboss), positionPlayer(NamaPlayer,_,_),
 	(X=1 ->  attack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=2 -> specialattack(NamaPlayer,AtkPlayer), defense(NamaMonster, DefMonster), 
 			Dmg is AtkPlayer-DefMonster,
 			 health(NamaMonster,HealthMnstr), NewHealthMnstr is HealthMnstr-Dmg, 
 			 retract(health(NamaMonster,_)), asserta(health(NamaMonster,NewHealthMnstr)),
-			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,nl,!;
+			 write('U have dealt '), write(Dmg), write(' damage to enemy, good job!'),nl,
+			 write('The enemy health now is '), write(NewHealthMnstr),nl,nl,!;
 	X=3 ->  usePotion(health_potion),!;
 	X==4 ->  write('U cant run in front of boss/miniboss :) gluck!'),nl,!),
 

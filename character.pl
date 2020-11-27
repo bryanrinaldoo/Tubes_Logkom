@@ -74,34 +74,34 @@ leveling(X) :-                                  /* X nama player */
               LevelUp is LvlPlayer + 1,
 
                 (ClassPlayer == swordsman ->
-                healthGain is 10,
-                attackGain is 10,
-                defenseGain is 10,
-                speedGain is 10,
-                specialattackGain is 5,!;
+                HealthGain is 10,
+                AttackGain is 10,
+                DefenseGain is 10,
+                SpeedGain is 10,
+                SpecialattackGain is 5,!;
 
                 ClassPlayer == archer ->
-                healthGain is 8,
-                attackGain is 13,
-                defenseGain is 5,
-                speedGain is 10,
-                specialattackGain is 10,!;
+                HealthGain is 8,
+                AttackGain is 13,
+                DefenseGain is 5,
+                SpeedGain is 10,
+                SpecialattackGain is 10,!;
 
                 ClassPlayer == sorcerer ->
-                healthGain is 6,
-                attackGain is 8,
-                defenseGain is 5,
-                speedGain is 8,
-                specialattackGain is 13,!),
+                HealthGain is 6,
+                AttackGain is 8,
+                DefenseGain is 5,
+                SpeedGain is 8,
+                SpecialattackGain is 13,!),
                   
                   health(X,_,MaxHealth), attack(X,Attack), defense(X,Defense),
                   speed(X,Speed), specialattack(X,SpcAttack),
 
-                  NewHealth is healthGain + MaxHealth,
-                  NewAttack is attackGain + Attack,
-                  NewDefense is defenseGain + Defense,
-                  NewSpeed is speedGain + Speed,
-                  NewSpcAttack is specialattackGain + SpcAttack,
+                  NewHealth is HealthGain + MaxHealth,
+                  NewAttack is AttackGain + Attack,
+                  NewDefense is DefenseGain + Defense,
+                  NewSpeed is SpeedGain + Speed,
+                  NewSpcAttack is SpecialattackGain + SpcAttack,
 
                   retract(exp(X,_)),
                   asserta(exp(X,ExpNew)),

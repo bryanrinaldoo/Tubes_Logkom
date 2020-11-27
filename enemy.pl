@@ -13,7 +13,7 @@ creategoblin(X) :-
     asserta(turn(0)).
 
 :- dynamic(createslime/1).
-creategoblin(X) :-
+createslime(X) :-
     asserta(class(X,monster)),
     asserta(health(X,10)),
     asserta(attack(X,5)),

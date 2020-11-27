@@ -107,7 +107,7 @@ menu :-     write('                                WELCOME FIGHTER!'),nl,nl,
             write('    |   _________________________|___'),nl,
             write('    |  /                            /.'),nl,
             write('    |_/____________________________/.'),nl,
-            nl, !), halt.
+            nl,halt,!).
 
 :- dynamic(alreadystart/1).
 
@@ -216,7 +216,21 @@ helpequip :-    write(' _          _       '),nl,
                 write('- write useAccessory(<item_name>). to equip your weapon'),nl,
                 write('- write usePotion(<item_name>). to use your potion'),nl.
 
-helpbattle :-   write('First, you need to walk around to find casual monster. Or you can'),nl,
+helpbattle :-   write(' _          _       '),nl,
+                write('| |        | |      '),nl,
+                write('| |__   ___| |_ __  '),nl,
+                write('|  _ \\ / _ \\ |  _ \\ '),nl,
+                write('| | | |  __/ | |_) |'),nl,
+                write('|_| |_|\\___|_| .__/ '),nl,
+                write('             | |    '),nl,
+                write('             |_|    '),nl,nl,
+                write('     _           _   _   _       '),nl,     
+                write('    | |         | | | | | |      '),nl,
+                write('    | |__   __ _| |_| |_| | ___  '),nl,
+                write('    | \'_ \\ / _` | __| __| |/ _ \\ '),nl,
+                write('    | |_) | (_| | |_| |_| |  __/ '),nl,
+                write('    |_.__/\\__,_| \\__|\\__|_|\\___| '),nl,nl,
+                write('First, you need to walk around to find casual monster. Or you can'),nl,
                 write('just walk to Monster Zone with symbol of \'O\' \'W\' \'V\' \'G\'. Last,'),nl,
                 write('you can fight miniboss or boss (if you brave enough) on the symbol of'),nl,
                 write('\'M\' or \'B\''),nl,nl,
