@@ -146,6 +146,12 @@ randomwood :-   random(1,100,R),nl,
                 R =< 80 -> keepitem(wooden_armor);
                 R =< 100 -> keepitem(wooden_ring)
                 ),nl,
+                write('                         _ '),nl,
+                write('                        | |'),nl,
+                write('__      _____   ___   __| |'),nl,
+                write('\\ \\ /\\ / / _ \\ / _ \\ / _` |'),nl,
+                write(' \\ V  V / (_) | (_) | (_| |'),nl,
+                write('  \\_/\\_/ \\___/ \\___/ \\__,_|'),nl,nl,
                 write('You just got wood level item!').
 
 randomiron :-   random(1,100,R),nl,
@@ -155,6 +161,12 @@ randomiron :-   random(1,100,R),nl,
                 R =< 80 -> keepitem(iron_armor);
                 R =< 100 -> keepitem(iron_ring)
                 ),nl,
+                write(' _ '),nl,                
+                write('(_)      '),nl,          
+                write(' _ _ __ ___  _ __  '),nl,
+                write('| |  __/ _ \\|  _ \\ '),nl,
+                write('| | | | (_) | | | |'),nl,
+                write('|_|_|  \\___/|_| |_|'),nl,nl,
                 write('You just got iron level item!').
 
 randomdiamond :-    random(1,100,R),nl,
@@ -164,6 +176,12 @@ randomdiamond :-    random(1,100,R),nl,
                     R =< 80 -> keepitem(diamond_armor);
                     R =< 100 -> keepitem(diamond_ring)
                     ),nl,
+                    write('     _ _                                 _ '),nl,
+                    write('    | (_)                               | |'),nl,
+                    write('  __| |_  __ _ _ __ ___   ___  _ __   __| |'),nl,
+                    write(' / _  | |/ _  |  _   _ \\ / _ \\|  _ \\ / _  |'),nl,
+                    write('| (_| | | (_| | | | | | | (_) | | | | (_| |'),nl,
+                    write(' \\__,_|_|\\__,_|_| |_| |_|\\___/|_| |_|\\__,_|'),nl,nl,
                     write('You just got diamond level item!').
 
 randomlegendary :-  random(1,100,R),nl,
@@ -173,6 +191,14 @@ randomlegendary :-  random(1,100,R),nl,
                     R =< 80 -> keepitem(legendary_armor);
                     R =< 100 -> keepitem(legendary_ring)
                     ),nl, 
+                    write(' _                           _                  '),nl,
+                    write('| |                         | |                 '),nl,
+                    write('| | ___  __ _  ___ _ __   __| | __ _ _ __ _   _ '),nl,
+                    write('| |/ _ \\/ _  |/ _ \\  _ \\ / _  |/ _  |  __| | | |'),nl,
+                    write('| |  __/ (_| |  __/ | | | (_| | (_| | |  | |_| |'),nl,
+                    write('|_|\\___|\\__, |\\___|_| |_|\\__,_|\\__,_|_|   \\__, |'),nl,
+                    write('         __/ |                             __/ |'),nl,
+                    write('        |___/                             |___/ '),nl,nl,
                     write('You just got legendary level item!').
 
 randompotion :-     random(1,100,R),nl,
@@ -182,4 +208,13 @@ randompotion :-     random(1,100,R),nl,
                     keepitem(attack_potion),
                     keepitem(defense_potion)
                     ),nl,
+                    write('             _   _                 '),nl,
+                    write('            | | (_)                '),nl,
+                    write(' _ __   ___ | |_ _  ___  _ __  ___ '),nl,
+                    write('|  _ \\ / _ \\| __| |/ _ \\|  _ \\/ __|'),nl,
+                    write('| |_) | (_) | |_| | (_) | | | \\__ \\'),nl,
+                    write('| .__/ \\___/ \\__|_|\\___/|_| |_|___/'),nl,
+                    write('| |                                '),nl,
+                    write('|_|                                '),nl,nl,
+
                     write('You just got potion item!').
